@@ -15,3 +15,19 @@
   opacity: 0;
   filter: alpha(opacity=0);
 }
+
+#plugin_status label {
+  font-weight: bolder;
+  color: rgb(25, 94, 92);
+  font-size: large;
+  animation: mymove 0.5s 5 alternate;
+}
+
+@keyframes mymove {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
