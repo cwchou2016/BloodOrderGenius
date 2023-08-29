@@ -31,6 +31,40 @@ async function getOrderStatus(orderNumber) {
   return result["bldSupOrdStatus"];
 }
 
+async function confrimDownloadOrder(orderNumber) {
+  updateStatusInfo(orderNumber, "......");
+
+  // check order in list
+  if (!(await verifyOrder(orderNumber))) {
+    updateStatusInfo(orderNumber, "無此訂單");
+    updateDownloadInfo(orderNumber, "無法下載");
+    updateLinkInfo(orderNumber, "-");
+    return;
+  }
+
+  // check order is cut
+  if (await checkEDI(orderNumber)) {
+    updateStatusInfo(orderNumber, "血品召回, 無法確認");
+    updateDownloadInfo(orderNumber, "無法下載");
+    updateLinkInfo(orderNumber, "-");
+    return;
+  }
+  // TODO: confirm order
+
+  // order status on server
+  let msg = await getOrderStatus(orderNumber);
+  updateStatusInfo(orderNumber, msg);
+
+  console.log(orderNumber, msg);
+  if (msg != "領血確認") {
+    updateDownloadInfo(orderNumber, "無法下載");
+    updateLinkInfo(orderNumber, "-");
+    return;
+  }
+
+  // TODO: build button and download
+}
+
 // Button click events
 
 function addBtnClick() {
@@ -54,7 +88,12 @@ function addBtnClick() {
   numEle.focus();
 }
 
-function btnStartClick() {}
+function btnStartClick() {
+  let orders = getAllOrderNumber();
+  for (let n of orders) {
+    confrimDownloadOrder(n);
+  }
+}
 
 // Modify UI events
 
