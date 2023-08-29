@@ -11,6 +11,14 @@ function getAllOrderNumber() {
   return numbers;
 }
 
+async function verifyOrder(orderNumber) {
+  let result = await queryOrder(orderNumber);
+  if (result["totalCount"] != 1) {
+    return false;
+  }
+  return true;
+}
+
 // Button click events
 
 function addBtnClick() {
@@ -33,6 +41,8 @@ function addBtnClick() {
   numEle.value = "";
   numEle.focus();
 }
+
+function btnStartClick() {}
 
 // Modify UI events
 
@@ -87,7 +97,9 @@ function buildBatchContent() {
   document.getElementById("btnAdd").addEventListener("click", () => {
     addBtnClick();
   });
-  document.getElementById("btnStart").addEventListener("click", () => {});
+  document.getElementById("btnStart").addEventListener("click", () => {
+    btnStartClick();
+  });
 
   document.getElementById("bloodOutInp").focus();
 }
