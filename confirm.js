@@ -54,11 +54,7 @@ function addBtnClick() {
   numEle.focus();
 }
 
-function btnStartClick() {
-    getOrderStatus("7-OUT-2023-08-5867").then(res => console.log(res));
-
-    getOrderStatus("7-OUT-2023-08-5687").then(res => console.log(res));
-}
+function btnStartClick() {}
 
 // Modify UI events
 
@@ -145,4 +141,19 @@ function addRow(bloodOutNumber) {
 function removeRow(bloodOutNumber) {
   const ele = document.getElementById(`row_${bloodOutNumber}`);
   ele.remove();
+}
+
+function updateStatusInfo(bloodOutNumber, info = "") {
+  const ele = document.getElementById(`status_${bloodOutNumber}`);
+  ele.innerHTML = info;
+}
+
+function updateDownloadInfo(bloodOutNumber, info = "") {
+  const ele = document.getElementById(`download_${bloodOutNumber}`);
+  ele.innerHTML = info;
+}
+
+function updateLinkInfo(bloodOutNumber, info = "") {
+  const ele = document.getElementById(`link_${bloodOutNumber}`);
+  ele.innerHTML = info;
 }
