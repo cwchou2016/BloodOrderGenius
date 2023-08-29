@@ -1,5 +1,25 @@
 buildBtnBatch();
 
+// Button click events
+
+function addBtnClick() {
+  console.log("add clicked");
+  const numEle = document.getElementById("bloodOutInp");
+
+  if (numEle.value.toString().length < 2) {
+    alert(`${numEle.value} 格式錯誤`);
+    numEle.select();
+    numEle.focus();
+    return;
+  }
+
+  addRow(numEle.value);
+  numEle.value = "";
+  numEle.focus();
+}
+
+// Build UI
+
 function buildBtnBatch() {
   const btnBatch = document.createElement("label");
   btnBatch.setAttribute("id", "btn_batch");
@@ -48,8 +68,29 @@ function buildBatchContent() {
     node.innerHTML = "";
   });
 
-  document.getElementById("btnAdd").addEventListener("click", () => {});
+  document.getElementById("btnAdd").addEventListener("click", () => {
+    addBtnClick();
+  });
   document.getElementById("btnStart").addEventListener("click", () => {});
 
   document.getElementById("bloodOutInp").focus();
+}
+
+function addRow(bloodOutNumber) {
+  const tr = document.createElement("tr");
+  tr.setAttribute("id", `row_${bloodOutNumber}`);
+
+  tr.innerHTML = `
+      <td><label class="btn btn-del" id="del_${bloodOutNumber}" value="${bloodOutNumber}")">刪</label></td>\
+      <td>${bloodOutNumber}</td>\
+      <td name="statusColumn" id="status_${bloodOutNumber}"></td>\
+      <td name="downloadColumn" id="download_${bloodOutNumber}"></td>\
+      <td name="linkColumn" id="link_${bloodOutNumber}"></td>\
+        `;
+
+  document.getElementById("tableBatch").appendChild(tr);
+
+  document
+    .getElementById(`del_${bloodOutNumber}`)
+    .addEventListener("click", () => {});
 }
