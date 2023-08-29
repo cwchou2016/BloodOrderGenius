@@ -18,7 +18,7 @@ function addBtnClick() {
   numEle.focus();
 }
 
-// Build UI
+// Modify UI events
 
 function buildBtnBatch() {
   const btnBatch = document.createElement("label");
@@ -92,5 +92,13 @@ function addRow(bloodOutNumber) {
 
   document
     .getElementById(`del_${bloodOutNumber}`)
-    .addEventListener("click", () => {});
+    .addEventListener("click", () => {
+      removeRow(bloodOutNumber);
+      document.getElementById("bloodOutInp").focus();
+    });
+}
+
+function removeRow(bloodOutNumber) {
+  const ele = document.getElementById(`row_${bloodOutNumber}`);
+  ele.remove();
 }
