@@ -63,6 +63,13 @@ async function confrimDownloadOrder(orderNumber) {
   }
 
   // TODO: build button and download
+  
+  updateDownloadInfo(orderNumber, "下載中");
+  let url = getEdiLink(orderNumber);
+  let btn = creatEdiDownloadBtn(url);
+  updateLinkInfo(orderNumber, btn.outerHTML);
+  btn.click();
+  updateDownloadInfo(orderNumber, "已下載");
 }
 
 // Button click events
@@ -188,6 +195,14 @@ function removeRow(bloodOutNumber) {
   const ele = document.getElementById(`row_${bloodOutNumber}`);
   ele.remove();
 }
+
+function creatEdiDownloadBtn(href) {
+    const link = document.createElement("a");
+    link.setAttribute("class", "btn btn-cancel download-link");
+    link.innerText = "手動下載";
+    link.href = href;
+    return link;
+  }
 
 function updateStatusInfo(bloodOutNumber, info = "") {
   const ele = document.getElementById(`status_${bloodOutNumber}`);
