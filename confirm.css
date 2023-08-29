@@ -1,0 +1,47 @@
+th[name="delColumn"] {
+    width: 50px;
+  }
+  
+  th[name="numColumn"] {
+    min-width: 130px;
+  }
+  
+  th[name="downloadColumn"] {
+    text-align: center;
+  }
+  
+  td[name="downloadColumn"] {
+    text-align: center;
+  }
+  
+  th[name="linkColumn"] {
+    text-align: center;
+    min-width: 70px;
+  }
+  
+  td[name="linkColumn"] {
+    text-align: center;
+  }
+  
+  th[name="statusColumn"] {
+    text-align: center;
+  }
+  
+  td[name="statusColumn"] {
+    text-align: center;
+  }
+  
+  #bloodOutInp {
+    width: 300px;
+    padding: auto;
+    margin: auto;
+  }
+  
+  .batch {
+    text-align: center;
+  }
+  
+  a.download-link {
+    font-size: 0.8em;
+  }
+  
