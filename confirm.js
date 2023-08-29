@@ -1,10 +1,26 @@
 buildBtnBatch();
 
+// Other functions
+
+function getAllOrderNumber() {
+  const elements = document.getElementsByClassName("btn-del");
+  let numbers = [];
+  for (let e of elements) {
+    numbers.push(e.getAttribute("value"));
+  }
+  return numbers;
+}
+
 // Button click events
 
 function addBtnClick() {
-  console.log("add clicked");
   const numEle = document.getElementById("bloodOutInp");
+
+  if (getAllOrderNumber().includes(numEle.value)) {
+    numEle.select();
+    numEle.focus();
+    return;
+  }
 
   if (numEle.value.toString().length < 2) {
     alert(`${numEle.value} 格式錯誤`);
