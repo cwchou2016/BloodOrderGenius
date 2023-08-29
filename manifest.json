@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Blood Order Genius",
+  "version": "1.0",
+  "description": "A plugin helps you ordering blood products through 'https://dh.blood.org.tw/hospital/'",
+  "permissions": [],
+  "action": {
+    "default_popup": "popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://dh.blood.org.tw/hospital/*"],
+      "js": ["global.js"],
+      "css": ["global.css"]
+    },
+    {
+      "matches": ["https://dh.blood.org.tw/hospital/application-use.htm"],
+      "js": ["confirm.js"],
+      "css": ["confirm.css"]
+    },
+    {
+      "matches": ["https://dh.blood.org.tw/hospital/application-sb.htm"],
+      "js": ["specialOrder.js"],
+      "css": ["specialOrder.css"]
+    }
+  ]
+}
