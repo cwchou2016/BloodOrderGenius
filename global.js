@@ -1,5 +1,6 @@
 const queryBldSupOrdMList_api =
   getOrigin() + "/tbsf-api/bs/bldSupOrdMService/queryBldSupOrdMList";
+const checkEDI_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/checkEDI";
 
 buildPluginStatus();
 
@@ -40,6 +41,24 @@ async function queryOrder(orderNumber = "") {
 
   let data = await response.json();
   return data["responseData"];
+}
+
+async function checkEDI(orderNumber) {
+  let payload = {
+    bldSupOrdNo: orderNumber,
+  };
+
+  response = await fetch(checkEDI_api, {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      Authorization: `bearer ${getToken()}`,
+    },
+    body: new URLSearchParams(payload).toString(),
+  });
+
+  data = await response.json();
+  return data["responseData"]["isCut"];
 }
 
 // Modify UI events
