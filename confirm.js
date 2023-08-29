@@ -19,6 +19,18 @@ async function verifyOrder(orderNumber) {
   return true;
 }
 
+async function getOrderStatus(orderNumber) {
+  let result = await queryOrder(orderNumber);
+
+  result = result["results"][0];
+
+  if (result["bldSupOrdNo"] != orderNumber) {
+    throw "Order number is not match with result";
+  }
+
+  return result["bldSupOrdStatus"];
+}
+
 // Button click events
 
 function addBtnClick() {
@@ -42,7 +54,11 @@ function addBtnClick() {
   numEle.focus();
 }
 
-function btnStartClick() {}
+function btnStartClick() {
+    getOrderStatus("7-OUT-2023-08-5867").then(res => console.log(res));
+
+    getOrderStatus("7-OUT-2023-08-5687").then(res => console.log(res));
+}
 
 // Modify UI events
 
