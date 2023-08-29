@@ -1,6 +1,13 @@
+const queryBldSupOrdMList_api =
+  getOrigin() + "/tbsf-api/bs/bldSupOrdMService/queryBldSupOrdMList";
+
 buildPluginStatus();
 
-// Server events
+// Server methods
+function getOrigin() {
+  return document.location.origin;
+}
+
 function getToken() {
   let cookies = document.cookie.split(";");
   for (let c of cookies) {
@@ -10,6 +17,29 @@ function getToken() {
       return `${value[1]}`;
     }
   }
+}
+
+async function queryOrder(orderNumber = "") {
+  let payload = {
+    bagNoType: 1,
+    bldSupOrdNo: orderNumber,
+    bldSupOrdShipDate: "",
+    bldSupOrdStatus: "",
+    iDisplayStart: 0,
+    iDisplayLength: 10,
+  };
+
+  response = await fetch(queryBldSupOrdMList_api, {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      Authorization: `bearer ${getToken()}`,
+    },
+    body: new URLSearchParams(payload).toString(),
+  });
+
+  let data = await response.json();
+  return data["responseData"];
 }
 
 // Modify UI events
