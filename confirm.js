@@ -89,8 +89,15 @@ function addBtnClick() {
 }
 
 function btnStartClick() {
-  let orders = getAllOrderNumber();
-  for (let n of orders) {
+  // ignore completed
+  let toDoList = [];
+  for (let n of getAllOrderNumber()) {
+    if (document.getElementById(`status_${n}`).innerText == "") {
+      toDoList.push(n);
+    }
+  }
+
+  for (let n of toDoList) {
     confrimDownloadOrder(n);
   }
 }
