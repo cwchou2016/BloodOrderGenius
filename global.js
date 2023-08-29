@@ -1,6 +1,8 @@
 const queryBldSupOrdMList_api =
   getOrigin() + "/tbsf-api/bs/bldSupOrdMService/queryBldSupOrdMList";
 const checkEDI_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/checkEDI";
+const downloadEDI_api =
+  getOrigin() + "/tbsf-api/bs/bldSupOrdMService/downloadEDI";
 
 buildPluginStatus();
 
@@ -59,6 +61,11 @@ async function checkEDI(orderNumber) {
 
   data = await response.json();
   return data["responseData"]["isCut"];
+}
+
+function getEdiLink(orderNumber) {
+  let para = `?bldSupOrdNo=${orderNumber}&access_token=${getToken()}`;
+  return `${downloadEDI_api}${para}`;
 }
 
 // Modify UI events
