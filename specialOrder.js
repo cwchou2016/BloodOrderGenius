@@ -82,6 +82,14 @@ async function updateRbc(ptid, rbc) {
   await savePatientData(ptid, data);
 }
 
+async function updateHla(ptid, hla) {
+  let data = await loadPatientData(ptid);
+  data = data[ptid];
+  data.hla = hla;
+  data.lastUpdate = formatDate(new Date());
+  await savePatientData(ptid, data);
+}
+
 // Click events
 async function cbg1_0Click(event) {
   let pt = getPatient();
@@ -115,16 +123,22 @@ async function btn_saveClick(event) {
   let ptid = getPatient();
   if (ptid == "") return;
 
-  let rbc = getRbcAg();
-
   // check patient data exist
   if (await patientNotExist(ptid)) {
     await savePatientData(ptid, createPatient(ptid));
   }
 
-  // check cbg1_0
+  // check cbg1_0 RBC ag
   if (document.getElementById("cbg1_0").checked) {
+    let rbc = getRbcAg();
     await updateRbc(ptid, rbc);
+    await loadPatientData(ptid);
+  }
+
+  // check cbg1_3 HLA
+  if (document.getElementById("cbg1_3").checked) {
+    let hla = getHla();
+    await updateHla(ptid, hla);
     await loadPatientData(ptid);
   }
 }
