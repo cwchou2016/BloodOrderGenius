@@ -15,14 +15,17 @@ function getPatient() {
   return document.getElementById("txt_patientNum").value;
 }
 
+// Data process
 async function savePatientData(ptid, data) {
   chrome.storage.local.set({ [ptid]: data });
-
-  let res = await chrome.storage.local.get([ptid]);
-  console.log(res);
 }
 
-// Data process
+async function loadPatientData(ptid) {
+  let res = await chrome.storage.local.get([ptid]);
+  console.log(res);
+  return res;
+}
+
 function createPatient(ptid) {
   let pt = {
     id: ptid,
