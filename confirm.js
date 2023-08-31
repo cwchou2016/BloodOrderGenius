@@ -63,7 +63,7 @@ async function confrimDownloadOrder(orderNumber) {
   }
 
   // TODO: build button and download
-  
+
   updateDownloadInfo(orderNumber, "下載中");
   let url = getEdiLink(orderNumber);
   let btn = creatEdiDownloadBtn(url);
@@ -166,6 +166,17 @@ function buildBatchContent() {
     btnStartClick();
   });
 
+  document.getElementById("bloodOutInp").addEventListener(
+    "keydown",
+    (event) => {
+      if (event.key == "Enter") {
+        event.preventDefault();
+        addBtnClick();
+      }
+    },
+    true
+  );
+
   document.getElementById("bloodOutInp").focus();
 }
 
@@ -197,12 +208,12 @@ function removeRow(bloodOutNumber) {
 }
 
 function creatEdiDownloadBtn(href) {
-    const link = document.createElement("a");
-    link.setAttribute("class", "btn btn-cancel download-link");
-    link.innerText = "手動下載";
-    link.href = href;
-    return link;
-  }
+  const link = document.createElement("a");
+  link.setAttribute("class", "btn btn-cancel download-link");
+  link.innerText = "手動下載";
+  link.href = href;
+  return link;
+}
 
 function updateStatusInfo(bloodOutNumber, info = "") {
   const ele = document.getElementById(`status_${bloodOutNumber}`);
