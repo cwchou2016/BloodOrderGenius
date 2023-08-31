@@ -5,8 +5,6 @@ const downloadEDI_api =
   getOrigin() + "/tbsf-api/bs/bldSupOrdMService/downloadEDI";
 const confirm_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/confirm";
 
-buildPluginStatus();
-
 // Server methods
 function getOrigin() {
   return document.location.origin;
