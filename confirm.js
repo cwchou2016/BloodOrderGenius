@@ -102,9 +102,14 @@ function addBtnClick() {
   addRow(numEle.value);
   numEle.value = "";
   numEle.focus();
+  document.getElementById("btnStart").classList.remove("disabled");
 }
 
 async function btnStartClick() {
+  const btnStart = document.getElementById("btnStart");
+  btnStart.innerText = "處理中....";
+  btnStart.classList.add("disabled");
+
   // ignore completed
   let toDoList = [];
   for (let n of getAllOrderNumber()) {
@@ -116,6 +121,9 @@ async function btnStartClick() {
   for (let n of toDoList) {
     await confirmDownloadOrder(n);
   }
+
+  btnStart.innerText = "批次確認及下載EDI";
+  btnStart.classList.remove("disabled");
 }
 
 // Modify UI events
@@ -158,7 +166,7 @@ function buildBatchContent() {
           </table>
         <div class="batch">
   
-        <label type="button" class="btn btn-save" id="btnStart">批次確認及下載EDI</label>
+        <label class="btn btn-save disabled" id="btnStart">批次確認及下載EDI</label>
   
         </div>
   

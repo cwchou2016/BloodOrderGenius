@@ -45,3 +45,6 @@ th[name="delColumn"] {
     font-size: 0.8em;
   }
   
+  label.disabled {
+    pointer-events: none;
+  }
