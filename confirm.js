@@ -31,7 +31,7 @@ async function getOrderStatus(orderNumber) {
   return result["bldSupOrdStatus"];
 }
 
-async function confrimDownloadOrder(orderNumber) {
+async function confirmDownloadOrder(orderNumber) {
   updateStatusInfo(orderNumber, "......");
 
   // check order in list
@@ -49,21 +49,30 @@ async function confrimDownloadOrder(orderNumber) {
     updateLinkInfo(orderNumber, "-");
     return;
   }
-  // TODO: confirm order
 
   // order status on server
   let msg = await getOrderStatus(orderNumber);
   updateStatusInfo(orderNumber, msg);
 
   console.log(orderNumber, msg);
-  if (msg != "領血確認") {
+  if (msg == "已供出") {
+    // confirm order
+    responseData = await confirmOrder(orderNumber);
+    if (responseData["statusCode"] != "900") {
+      console.log(responseData);
+      updateStatusInfo(orderNumber, "確認失敗");
+      updateDownloadInfo(orderNumber, "無法下載");
+      updateLinkInfo(orderNumber, "-");
+      return;
+    }
+    updateStatusInfo(orderNumber, "已確認");
+  } else if (msg != "領血確認") {
     updateDownloadInfo(orderNumber, "無法下載");
     updateLinkInfo(orderNumber, "-");
     return;
   }
 
-  // TODO: build button and download
-
+  //build button and download
   updateDownloadInfo(orderNumber, "下載中");
   let url = getEdiLink(orderNumber);
   let btn = creatEdiDownloadBtn(url);
@@ -95,7 +104,7 @@ function addBtnClick() {
   numEle.focus();
 }
 
-function btnStartClick() {
+async function btnStartClick() {
   // ignore completed
   let toDoList = [];
   for (let n of getAllOrderNumber()) {
@@ -105,7 +114,7 @@ function btnStartClick() {
   }
 
   for (let n of toDoList) {
-    confrimDownloadOrder(n);
+    await confirmDownloadOrder(n);
   }
 }
 
