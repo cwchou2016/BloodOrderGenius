@@ -20,6 +20,28 @@ function getRbcAg() {
   return rbc;
 }
 
+function getHla() {
+  let keys = [
+    "txt_hlaBdType_A1",
+    "txt_hlaBdType_A2",
+    "txt_hlaBdType_B1",
+    "txt_hlaBdType_B2",
+    "txt_hlaBdType_C1",
+    "txt_hlaBdType_C2",
+    "txt_hlaBdType_Bw1",
+    "txt_hlaBdType_Bw2",
+  ];
+
+  let hla = {};
+
+  for (let k of keys) {
+    let value = document.getElementById(k).value;
+    hla[k] = value;
+  }
+
+  return hla;
+}
+
 function getPatient() {
   return document.getElementById("txt_patientNum").value;
 }
