@@ -52,12 +52,22 @@ async function updateRbc(ptid, rbc) {
 }
 
 // Click events
-function cbg1_0Click(event) {
+async function cbg1_0Click(event) {
   let pt = getPatient();
   if (pt == "") {
     alert("請先選擇病人");
     event.preventDefault();
     return;
+  }
+
+  let ptData = await loadPatientData(pt);
+  let rbc = ptData[pt].rbc;
+
+  let i = 1;
+  for (let ag of rbc) {
+    const select = document.getElementById(`select_redBD2_${i}`);
+    select.value = ag;
+    i += 1;
   }
 }
 
