@@ -1,6 +1,15 @@
 insertClickEvents();
 buildPluginStatus();
 
+function formatDate(date) {
+  let year = date.getFullYear();
+  let month = date.getMonth();
+  let day = date.getDate();
+  let h = date.getHours();
+  let m = date.getMinutes();
+  return `${year}/${month}/${day} ${h}:${m}`;
+}
+
 function getRbcAg() {
   let rbc = [];
   for (let i = 1; i <= 10; i++) {
@@ -36,7 +45,7 @@ function createPatient(ptid) {
     id: ptid,
     rbc: [],
     hla: [],
-    lastUpdate: Date.now(),
+    lastUpdate: "",
   };
 
   return pt;
@@ -47,7 +56,7 @@ async function updateRbc(ptid, rbc) {
   data = data[ptid];
 
   data.rbc = rbc;
-  data.lastUpdate = Date.now();
+  data.lastUpdate = formatDate(new Date());
   await savePatientData(ptid, data);
 }
 
@@ -60,8 +69,15 @@ async function cbg1_0Click(event) {
     return;
   }
 
+  const updateInfo = document.getElementById("updateInfo");
+  updateInfo.innerText = "";
+
+  // check patient data exist
+  if (await patientNotExist(pt)) return;
+
   let ptData = await loadPatientData(pt);
   let rbc = ptData[pt].rbc;
+  let update = ptData[pt].lastUpdate;
 
   let i = 1;
   for (let ag of rbc) {
@@ -69,6 +85,7 @@ async function cbg1_0Click(event) {
     select.value = ag;
     i += 1;
   }
+  updateInfo.innerText = `資料更新時間：${update}`;
 }
 
 async function btn_saveClick(event) {
@@ -92,6 +109,12 @@ async function btn_saveClick(event) {
 
 // Modify UI
 function insertClickEvents() {
+  const updateInfo = document.createElement("div");
+  updateInfo.setAttribute("id", "updateInfo");
+  document
+    .getElementById("select_redBD2_group")
+    .parentNode.appendChild(updateInfo);
+
   document.getElementById("cbg1_0").addEventListener("click", (event) => {
     cbg1_0Click(event);
   });
