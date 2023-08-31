@@ -17,13 +17,18 @@ function getPatient() {
 
 // Data process
 async function savePatientData(ptid, data) {
-  chrome.storage.local.set({ [ptid]: data });
+  await chrome.storage.local.set({ [ptid]: data });
 }
 
 async function loadPatientData(ptid) {
   let res = await chrome.storage.local.get([ptid]);
   console.log(res);
   return res;
+}
+
+async function patientNotExist(ptid) {
+  let data = await loadPatientData(ptid);
+  return Object.keys(data).length == 0;
 }
 
 function createPatient(ptid) {
@@ -37,6 +42,15 @@ function createPatient(ptid) {
   return pt;
 }
 
+async function updateRbc(ptid, rbc) {
+  let data = await loadPatientData(ptid);
+  data = data[ptid];
+
+  data.rbc = rbc;
+  data.lastUpdate = Date.now();
+  await savePatientData(ptid, data);
+}
+
 // Click events
 function cbg1_0Click(event) {
   let pt = getPatient();
@@ -47,8 +61,23 @@ function cbg1_0Click(event) {
   }
 }
 
-function btn_saveClick(event) {
+async function btn_saveClick(event) {
   event.preventDefault();
+  let ptid = getPatient();
+  if (ptid == "") return;
+
+  let rbc = getRbcAg();
+
+  // check patient data exist
+  if (await patientNotExist(ptid)) {
+    await savePatientData(ptid, createPatient(ptid));
+  }
+
+  // check cbg1_0
+  if (document.getElementById("cbg1_0").checked) {
+    await updateRbc(ptid, rbc);
+    await loadPatientData(ptid);
+  }
 }
 
 // Modify UI
