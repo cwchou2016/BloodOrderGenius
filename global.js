@@ -3,6 +3,7 @@ const queryBldSupOrdMList_api =
 const checkEDI_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/checkEDI";
 const downloadEDI_api =
   getOrigin() + "/tbsf-api/bs/bldSupOrdMService/downloadEDI";
+const confirm_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/confirm";
 
 buildPluginStatus();
 
@@ -45,6 +46,21 @@ async function queryOrder(orderNumber = "") {
   return data["responseData"];
 }
 
+// haven't test yet
+async function confirmOrder(orderNumber) {
+  let payload = `pkAk=${orderNumber}`;
+
+  response = await fetch(confirm_api, {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      Authorization: `bearer ${getToken()}`,
+    },
+    body: payload,
+  });
+  let data = await response.json();
+  return data;
+}
 async function checkEDI(orderNumber) {
   let payload = {
     bldSupOrdNo: orderNumber,
