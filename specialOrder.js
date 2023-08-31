@@ -11,6 +11,10 @@ function getRbcAg() {
   return rbc;
 }
 
+function getPatient() {
+  return document.getElementById("txt_patientNum").value;
+}
+
 // Modify UI
 function insertClickEvents() {
   document.getElementById("cbg1_0").addEventListener("click", () => {});
