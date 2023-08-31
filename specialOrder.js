@@ -34,7 +34,26 @@ function createPatient(ptid) {
   return pt;
 }
 
+// Click events
+function cbg1_0Click(event) {
+  let pt = getPatient();
+  if (pt == "") {
+    alert("請先選擇病人");
+    event.preventDefault();
+    return;
+  }
+}
+
+function btn_saveClick(event) {
+  event.preventDefault();
+}
+
 // Modify UI
 function insertClickEvents() {
-  document.getElementById("cbg1_0").addEventListener("click", () => {});
+  document.getElementById("cbg1_0").addEventListener("click", (event) => {
+    cbg1_0Click(event);
+  });
+  document.getElementById("btn_save").addEventListener("click", (event) => {
+    btn_saveClick(event);
+  });
 }
