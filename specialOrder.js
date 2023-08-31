@@ -70,8 +70,9 @@ function createPatient(ptid) {
   let pt = {
     id: ptid,
     rbc: [],
-    hla: [],
-    lastUpdate: "",
+    hla: {},
+    rbcLastUpdate: "",
+    hlaLastUpdate: "",
   };
 
   return pt;
@@ -82,7 +83,7 @@ async function updateRbc(ptid, rbc) {
   data = data[ptid];
 
   data.rbc = rbc;
-  data.lastUpdate = formatDate(new Date());
+  data.rbcLastUpdate = formatDate(new Date());
   await savePatientData(ptid, data);
 }
 
@@ -90,7 +91,7 @@ async function updateHla(ptid, hla) {
   let data = await loadPatientData(ptid);
   data = data[ptid];
   data.hla = hla;
-  data.lastUpdate = formatDate(new Date());
+  data.hlaLastUpdate = formatDate(new Date());
   await savePatientData(ptid, data);
 }
 
@@ -103,15 +104,12 @@ async function cbg1_0Click(event) {
     return;
   }
 
-  const updateInfo = document.getElementById("updateInfo");
-  updateInfo.innerText = "";
-
   // check patient data exist
   if (await patientNotExist(pt)) return;
 
   let ptData = await loadPatientData(pt);
   let rbc = ptData[pt].rbc;
-  let update = ptData[pt].lastUpdate;
+  let update = ptData[pt].rbcLastUpdate;
 
   let i = 1;
   for (let ag of rbc) {
@@ -119,7 +117,9 @@ async function cbg1_0Click(event) {
     select.value = ag;
     i += 1;
   }
-  updateInfo.innerText = `資料更新時間：${update}`;
+  document.getElementById(
+    "rbcUpdateInfo"
+  ).innerText = `資料更新時間：${update}`;
 }
 
 async function cbg1_3Click(event) {
@@ -130,21 +130,20 @@ async function cbg1_3Click(event) {
     return;
   }
 
-  const updateInfo = document.getElementById("updateInfo");
-  updateInfo.innerText = "";
-
   // check patient data exist
   if (await patientNotExist(pt)) return;
 
   let ptData = await loadPatientData(pt);
   let hla = ptData[pt].hla;
-  let update = ptData[pt].lastUpdate;
+  let update = ptData[pt].hlaLastUpdate;
 
   for (let k in hla) {
     console.log(k, hla[k]);
     document.getElementById(k).value = hla[k];
   }
-  updateInfo.innerText = `資料更新時間：${update}`;
+  document.getElementById(
+    "hlaUpdateInfo"
+  ).innerText = `資料更新時間：${update}`;
 }
 
 async function btn_saveClick(event) {
@@ -175,10 +174,14 @@ async function btn_saveClick(event) {
 // Modify UI
 function insertClickEvents() {
   const updateInfo = document.createElement("div");
-  updateInfo.setAttribute("id", "updateInfo");
-  document
-    .getElementById("select_redBD2_group")
-    .parentNode.appendChild(updateInfo);
+  updateInfo.setAttribute("id", "rbcUpdateInfo");
+  updateInfo.classList.add("updateInfo");
+  document.getElementById("select_redBD2_group").appendChild(updateInfo);
+
+  const updateInfo2 = document.createElement("div");
+  updateInfo2.setAttribute("id", "hlaUpdateInfo");
+  updateInfo2.classList.add("updateInfo");
+  document.getElementById("txt_hlaBdType_group").appendChild(updateInfo2);
 
   document.getElementById("cbg1_0").addEventListener("click", (event) => {
     cbg1_0Click(event);
