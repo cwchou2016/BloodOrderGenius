@@ -20,7 +20,7 @@
       "css": ["confirm.css"]
     },
     {
-      "matches": ["https://dh.blood.org.tw/hospital/application-sb.htm"],
+      "matches": ["https://dh.blood.org.tw/hospital/application-sb_registed.htm"],
       "js": ["specialOrder.js"],
       "css": ["specialOrder.css"]
     }
