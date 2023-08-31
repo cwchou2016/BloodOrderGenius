@@ -36,7 +36,11 @@ function getHla() {
 
   for (let k of keys) {
     let value = document.getElementById(k).value;
-    hla[k] = value;
+    if (Number(value) == 0) {
+      hla[k] = "";
+    } else {
+      hla[k] = value;
+    }
   }
 
   return hla;
@@ -118,6 +122,31 @@ async function cbg1_0Click(event) {
   updateInfo.innerText = `資料更新時間：${update}`;
 }
 
+async function cbg1_3Click(event) {
+  let pt = getPatient();
+  if (pt == "") {
+    alert("請先選擇病人");
+    event.preventDefault();
+    return;
+  }
+
+  const updateInfo = document.getElementById("updateInfo");
+  updateInfo.innerText = "";
+
+  // check patient data exist
+  if (await patientNotExist(pt)) return;
+
+  let ptData = await loadPatientData(pt);
+  let hla = ptData[pt].hla;
+  let update = ptData[pt].lastUpdate;
+
+  for (let k in hla) {
+    console.log(k, hla[k]);
+    document.getElementById(k).value = hla[k];
+  }
+  updateInfo.innerText = `資料更新時間：${update}`;
+}
+
 async function btn_saveClick(event) {
   event.preventDefault();
   let ptid = getPatient();
@@ -153,6 +182,9 @@ function insertClickEvents() {
 
   document.getElementById("cbg1_0").addEventListener("click", (event) => {
     cbg1_0Click(event);
+  });
+  document.getElementById("cbg1_3").addEventListener("click", (event) => {
+    cbg1_3Click(event);
   });
   document.getElementById("btn_save").addEventListener("click", (event) => {
     btn_saveClick(event);
