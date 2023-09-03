@@ -93,7 +93,7 @@ function addBtnClick() {
     return;
   }
 
-  if (numEle.value.toString().length < 2) {
+  if (numEle.value.toString().length !=18) {
     alert(`${numEle.value} 格式錯誤`);
     numEle.select();
     numEle.focus();
