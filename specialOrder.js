@@ -147,7 +147,6 @@ async function cbg1_3Click(event) {
 }
 
 async function btn_saveClick(event) {
-  event.preventDefault();
   let ptid = getPatient();
   if (ptid == "") return;
 
