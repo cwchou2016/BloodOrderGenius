@@ -121,6 +121,7 @@ async function btnStartClick() {
 
   for (let n of toDoList) {
     await confirmDownloadOrder(n);
+    await sleep(2000);
   }
 
   btnStart.innerText = "批次確認及下載EDI";

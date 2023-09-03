@@ -44,7 +44,6 @@ async function queryOrder(orderNumber = "") {
   return data["responseData"];
 }
 
-// haven't test yet
 async function confirmOrder(orderNumber) {
   let payload = `pkAk=${orderNumber}`;
 
@@ -98,4 +97,12 @@ function hideStatus() {
   setTimeout(() => {
     statusDiv.className = "";
   }, 1000);
+}
+
+// Other
+
+function sleep(s) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, s);
+  });
 }
