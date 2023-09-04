@@ -1,5 +1,9 @@
-insertClickEvents();
-buildPluginStatus();
+window.addEventListener("load", async () => {
+  if (await getExtensionActivation()) {
+    insertClickEvents();
+    buildPluginStatus();
+  }
+});
 
 function formatDate(date) {
   let year = date.getFullYear();
@@ -174,12 +178,12 @@ async function btn_saveClick(event) {
 function insertClickEvents() {
   const updateInfo = document.createElement("div");
   updateInfo.setAttribute("id", "rbcUpdateInfo");
-  updateInfo.classList.add("updateInfo")
+  updateInfo.classList.add("updateInfo");
   document.getElementById("select_redBD2_group").appendChild(updateInfo);
 
   const updateInfo2 = document.createElement("div");
   updateInfo2.setAttribute("id", "hlaUpdateInfo");
-  updateInfo2.classList.add("updateInfo")
+  updateInfo2.classList.add("updateInfo");
   document.getElementById("txt_hlaBdType_group").appendChild(updateInfo2);
 
   document.getElementById("cbg1_0").addEventListener("click", (event) => {

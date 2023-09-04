@@ -106,3 +106,8 @@ function sleep(s) {
     setTimeout(resolve, s);
   });
 }
+
+async function getExtensionActivation() {
+  let data = await chrome.storage.sync.get(["activate"]);
+  return data["activate"];
+}

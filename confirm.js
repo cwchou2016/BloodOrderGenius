@@ -1,5 +1,9 @@
-buildPluginStatus();
-buildBtnBatch();
+window.addEventListener("load", async () => {
+  if (await getExtensionActivation()) {
+    buildPluginStatus();
+    buildBtnBatch();
+  }
+});
 
 // Other functions
 
