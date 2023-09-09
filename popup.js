@@ -9,6 +9,8 @@ document.getElementById("isActivate").addEventListener("click", () => {
   } else {
     turnOff();
   }
+
+  refresh();
 });
 
 async function initExtension() {
@@ -36,4 +38,19 @@ function turnOff() {
   chrome.storage.sync.set({ ["activate"]: false });
   document.getElementById("status").innerText = "休息中.....";
   document.getElementById("isActivate").checked = false;
+}
+
+async function refresh() {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  let isMatch = tab.url.match("https://dh.blood.org.tw/hospital/*");
+
+  if (isMatch) {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: () => {
+        location.reload();
+      },
+    });
+  }
 }
