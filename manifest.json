@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Blood Order Genius",
-  "version": "1.0",
+  "version": "0.0.2",
   "description": "A plugin helps you ordering blood products through 'https://dh.blood.org.tw/hospital/'",
   "icons": {
     "128": "icons/icon.png"
