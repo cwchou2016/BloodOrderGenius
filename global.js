@@ -4,10 +4,25 @@ const checkEDI_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/checkEDI";
 const downloadEDI_api =
   getOrigin() + "/tbsf-api/bs/bldSupOrdMService/downloadEDI";
 const confirm_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/confirm";
+const checkToken_api = getOrigin() + "/tbsf-api/check_token";
 
 // Server methods
 function getOrigin() {
   return document.location.origin;
+}
+
+async function isTokenValid() {
+  response = await fetch(checkToken_api, {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body: `access_token=${getToken()}`,
+  });
+
+  let data = await response.json();
+
+  return data["statusCode"] == "1009";
 }
 
 function getToken() {

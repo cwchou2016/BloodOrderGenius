@@ -111,6 +111,11 @@ function addBtnClick() {
 }
 
 async function btnStartClick() {
+  if ((await isTokenValid()) == false) {
+    location.reload();
+    return;
+  }
+
   const btnStart = document.getElementById("btnStart");
   btnStart.innerText = "處理中....";
   btnStart.classList.add("disabled");
@@ -142,7 +147,11 @@ function buildBtnBatch() {
 
   document.getElementById("submit").parentElement.appendChild(btnBatch);
 
-  btnBatch.addEventListener("click", () => {
+  btnBatch.addEventListener("click", async () => {
+    if ((await isTokenValid()) == false) {
+      location.reload();
+      return;
+    }
     buildBatchContent();
   });
 }
