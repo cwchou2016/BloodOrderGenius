@@ -1,16 +1,16 @@
 window.addEventListener("load", async () => {
   if (await isExtensionOff()) return;
-  
+
   insertClickEvents();
   buildPluginStatus();
 });
 
 function formatDate(date) {
   let year = date.getFullYear();
-  let month = date.getMonth();
+  let month = date.getMonth()+1;
   let day = date.getDate();
-  let h = date.getHours();
-  let m = date.getMinutes();
+  let h = `0${date.getHours()}`.slice(-2);
+  let m = `0${date.getMinutes()}`.slice(-2);
   return `${year}/${month}/${day} ${h}:${m}`;
 }
 
