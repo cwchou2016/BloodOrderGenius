@@ -38,7 +38,9 @@ function turnOff() {
 async function refresh() {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-  let isMatch = tab.url.match("https://dh.blood.org.tw/hospital/*");
+  let isMatch = tab.url.match(
+    /^(https:\/\/(dh\.)?blood\.org\.tw\/hospital\/)(.*)?$/
+  );
 
   if (isMatch) {
     chrome.scripting.executeScript({
