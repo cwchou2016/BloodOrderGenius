@@ -107,7 +107,7 @@ function sleep(s) {
   });
 }
 
-async function getExtensionActivation() {
-  let data = await chrome.storage.sync.get(["activate"]);
-  return data["activate"];
+async function isExtensionOff() {
+  let data = await chrome.storage.sync.get(["deactivate"]);
+  return data["deactivate"];
 }

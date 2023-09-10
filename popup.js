@@ -14,28 +14,23 @@ document.getElementById("isActivate").addEventListener("click", () => {
 });
 
 async function initExtension() {
-  let activate = await getExtensionActivation();
-  console.log(activate);
-  if (activate === false) {
+  let deactivate = await isExtensionOff();
+  console.log(deactivate);
+  if (deactivate) {
     turnOff();
     return;
   }
   turnOn();
 }
 
-async function getExtensionActivation() {
-  let data = await chrome.storage.sync.get(["activate"]);
-  return data["activate"];
-}
-
 function turnOn() {
-  chrome.storage.sync.set({ ["activate"]: true });
+  chrome.storage.sync.set({ ["deactivate"]: false });
   document.getElementById("status").innerText = "血庫小精靈工作中......";
   document.getElementById("isActivate").checked = true;
 }
 
 function turnOff() {
-  chrome.storage.sync.set({ ["activate"]: false });
+  chrome.storage.sync.set({ ["deactivate"]: true });
   document.getElementById("status").innerText = "休息中.....";
   document.getElementById("isActivate").checked = false;
 }

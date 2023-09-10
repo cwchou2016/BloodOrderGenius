@@ -1,8 +1,8 @@
 window.addEventListener("load", async () => {
-  if (await getExtensionActivation()) {
-    buildPluginStatus();
-    buildBtnBatch();
-  }
+  if (await isExtensionOff()) return;
+
+  buildPluginStatus();
+  buildBtnBatch();
 });
 
 // Other functions

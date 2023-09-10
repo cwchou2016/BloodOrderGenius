@@ -1,8 +1,8 @@
 window.addEventListener("load", async () => {
-  if (await getExtensionActivation()) {
-    insertClickEvents();
-    buildPluginStatus();
-  }
+  if (await isExtensionOff()) return;
+  
+  insertClickEvents();
+  buildPluginStatus();
 });
 
 function formatDate(date) {
