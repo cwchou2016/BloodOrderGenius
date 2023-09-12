@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Blood Order Genius",
-  "version": "0.0.2",
-  "description": "A plugin helps you ordering blood products through 'https://dh.blood.org.tw/hospital/'",
+  "name": "血庫小精靈 Blood Order Genius",
+  "version": "0.0.3",
+  "description": "血液基金會醫院網路作業平台(https://dh.blood.org.tw/hospital/)之 Chrome 套件。",
   "icons": {
     "128": "icons/icon.png"
   },
