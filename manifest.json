@@ -7,7 +7,7 @@
     "128": "icons/icon.png"
   },
   "permissions": ["storage", "tabs", "scripting"],
-  "host_permissions":["https://dh.blood.org.tw/hospital/*"],
+  "host_permissions": ["https://dh.blood.org.tw/hospital/*"],
   "action": {
     "default_popup": "popup.html"
   },
@@ -29,6 +29,14 @@
       ],
       "js": ["specialOrder.js"],
       "css": ["specialOrder.css"]
+    },
+    {
+      "matches": [
+        "https://dh.blood.org.tw/hospital/",
+        "https://dh.blood.org.tw/hospital/index.htm",
+        "https://dh.blood.org.tw/hospital/index_1.htm"
+      ],
+      "js": ["quickLogin.js"]
     }
   ]
 }
