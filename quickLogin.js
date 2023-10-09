@@ -2,8 +2,15 @@ window.addEventListener("load", async () => {
   if (await isExtensionOff()) return;
 
   buildPluginStatus();
+  autoFillHosptialId();
   insertClickEvents();
 });
+
+async function autoFillHosptialId() {
+  let id = await chrome.storage.sync.get(["hosp_id"]);
+  id = id["hosp_id"];
+  document.getElementById("txt_orgCode").value = id;
+}
 
 function saveHospitalId() {
   let id = document.getElementById("txt_orgCode").value;
