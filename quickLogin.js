@@ -3,8 +3,17 @@ window.addEventListener("load", async () => {
 
   buildPluginStatus();
   autoFillHosptialId();
+  autoFillValCode();
   insertClickEvents();
+  document.getElementById("txt_username").focus();
 });
+
+function autoFillValCode() {
+  let codeDiv = document.getElementById("txtCaptchaDiv");
+  if(codeDiv === null) return;
+
+  document.getElementById("valCode").value = codeDiv.value;
+}
 
 async function autoFillHosptialId() {
   let id = await chrome.storage.sync.get(["hosp_id"]);
