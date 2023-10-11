@@ -2,10 +2,13 @@ window.addEventListener("load", async () => {
   if (await isExtensionOff()) return;
 
   buildPluginStatus();
-  autoFillHosptialId();
+  autoFillHosptialId().then((hasId) => {
+    if (hasId) {
+      document.getElementById("txt_username").focus();
+    }
+  });
   autoFillValCode();
   insertClickEvents();
-  document.getElementById("txt_username").focus();
 });
 
 function autoFillValCode() {
@@ -19,8 +22,10 @@ async function autoFillHosptialId() {
   let id = await chrome.storage.local.get(["hosp_id"]);
   id = id["hosp_id"];
 
-  if (id == null || id == "") return;
+  if (id == null || id == "") return false;
+
   document.getElementById("txt_orgCode").value = id;
+  return true;
 }
 
 function saveHospitalId() {
