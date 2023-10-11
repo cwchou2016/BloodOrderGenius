@@ -2,28 +2,35 @@ window.addEventListener("load", async () => {
   if (await isExtensionOff()) return;
 
   buildPluginStatus();
-  autoFillHosptialId();
+  autoFillHosptialId().then((hasId) => {
+    if (hasId) {
+      document.getElementById("txt_username").focus();
+    }
+  });
   autoFillValCode();
   insertClickEvents();
-  document.getElementById("txt_username").focus();
 });
 
 function autoFillValCode() {
   let codeDiv = document.getElementById("txtCaptchaDiv");
-  if(codeDiv === null) return;
+  if (codeDiv == null) return;
 
-  document.getElementById("valCode").value = codeDiv.value;
+  document.getElementById("valCode").value = codeDiv.innerText;
 }
 
 async function autoFillHosptialId() {
-  let id = await chrome.storage.sync.get(["hosp_id"]);
+  let id = await chrome.storage.local.get(["hosp_id"]);
   id = id["hosp_id"];
+
+  if (id == null || id == "") return false;
+
   document.getElementById("txt_orgCode").value = id;
+  return true;
 }
 
 function saveHospitalId() {
   let id = document.getElementById("txt_orgCode").value;
-  chrome.storage.sync.set({ ["hosp_id"]: id });
+  chrome.storage.local.set({ ["hosp_id"]: id });
 }
 
 // Modify UI
