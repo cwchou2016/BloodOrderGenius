@@ -10,9 +10,9 @@ window.addEventListener("load", async () => {
 
 function autoFillValCode() {
   let codeDiv = document.getElementById("txtCaptchaDiv");
-  if(codeDiv === null) return;
+  if (codeDiv == null) return;
 
-  document.getElementById("valCode").value = codeDiv.value;
+  document.getElementById("valCode").value = codeDiv.innerText;
 }
 
 async function autoFillHosptialId() {
