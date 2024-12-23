@@ -9,26 +9,26 @@
   "permissions": ["storage", "tabs", "scripting"],
   "host_permissions": ["https://dh.blood.org.tw/hospital/*"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup/popup.html"
   },
 
   "content_scripts": [
     {
       "matches": ["https://dh.blood.org.tw/hospital/*"],
-      "js": ["global.js"],
-      "css": ["global.css"]
+      "js": ["scripts/global.js"],
+      "css": ["css/global.css"]
     },
     {
       "matches": ["https://dh.blood.org.tw/hospital/application-use.htm"],
-      "js": ["confirm.js"],
-      "css": ["confirm.css"]
+      "js": ["scripts/confirm.js"],
+      "css": ["css/confirm.css"]
     },
     {
       "matches": [
         "https://dh.blood.org.tw/hospital/application-sb_registed.htm"
       ],
-      "js": ["specialOrder.js"],
-      "css": ["specialOrder.css"]
+      "js": ["scripts/specialOrder.js"],
+      "css": ["css/specialOrder.css"]
     },
     {
       "matches": [
@@ -36,7 +36,7 @@
         "https://dh.blood.org.tw/hospital/index.htm",
         "https://dh.blood.org.tw/hospital/index_1.htm"
       ],
-      "js": ["quickLogin.js"]
+      "js": ["scripts/quickLogin.js"]
     }
   ]
 }
