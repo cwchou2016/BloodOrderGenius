@@ -156,3 +156,12 @@ async function isExtensionOff() {
   let data = await chrome.storage.sync.get(["deactivate"]);
   return data["deactivate"];
 }
+
+function formatDateTime(date) {
+  let year = date.getFullYear();
+  let month = date.getMonth()+1;
+  let day = date.getDate();
+  let h = `0${date.getHours()}`.slice(-2);
+  let m = `0${date.getMinutes()}`.slice(-2);
+  return `${year}/${month}/${day} ${h}:${m}`;
+}
