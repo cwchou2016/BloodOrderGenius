@@ -53,6 +53,13 @@
   position: absolute;
   background-color: #ffffff;
   z-index: 10000;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  border: 1px solid #ddd; 
+
+   /* Make the menu scrollable */
+   max-height: 200px;  /* Maximum height before scrolling starts */
+   overflow-y: auto;   /* Enables vertical scrolling if the content exceeds max-height */
 }
 
 /* Links inside the dropdown */
