@@ -125,13 +125,25 @@ function buildQuickNotes(textarea) {
   let dropdownContent = document.createElement("div");
   dropdownContent.className = "dropdown-content";
 
-  let phrases = ["string1","string2","string3"];
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate()+1);
 
+  let phrases = [
+    `今天(${formatSimpleDate(today)})`,
+    `明天(${formatSimpleDate(tomorrow)})`,
+    "團供",
+    "新鮮 A2 B2 O10",
+    "  大  小", 
+    " 洗滌 ",
+    "降轉PH",
+     "升LRPH"];
+  
   for(let p of phrases){
     let element = document.createElement('a');
     element.innerText = p;
     element.addEventListener("click", (e)=> {
-      textarea.value += e.target.innerText;
+      textarea.value += e.target.innerText +" ";
       textarea.focus();
     })
 
@@ -164,4 +176,10 @@ function formatDateTime(date) {
   let h = `0${date.getHours()}`.slice(-2);
   let m = `0${date.getMinutes()}`.slice(-2);
   return `${year}/${month}/${day} ${h}:${m}`;
+}
+
+function formatSimpleDate(date) {
+  let month = date.getMonth()+1;
+  let day = date.getDate();
+  return `${month}/${day}`;
 }
