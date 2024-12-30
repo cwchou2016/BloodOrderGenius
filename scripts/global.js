@@ -114,6 +114,36 @@ function hideStatus() {
   }, 1000);
 }
 
+function buildQuickNotes(textarea) {
+  let dropdownDiv = document.createElement('div');
+  dropdownDiv.className = "dropdown";
+  
+  let dropdownBtn = document.createElement('a');
+  dropdownBtn.className = 'btn-del dropbtn';
+  dropdownBtn.innerText = '快速輸入';
+
+  let dropdownContent = document.createElement("div");
+  dropdownContent.className = "dropdown-content";
+
+  let phrases = ["string1","string2","string3"];
+
+  for(let p of phrases){
+    let element = document.createElement('a');
+    element.innerText = p;
+    element.addEventListener("click", (e)=> {
+      textarea.value += e.target.innerText;
+      textarea.focus();
+    })
+
+    dropdownContent.appendChild(element);
+  }
+
+  dropdownDiv.appendChild(dropdownBtn);
+  dropdownDiv.appendChild(dropdownContent);
+
+  textarea.parentNode.appendChild(dropdownDiv);
+}
+
 // Other
 
 function sleep(s) {

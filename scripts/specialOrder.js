@@ -3,6 +3,7 @@ window.addEventListener("load", async () => {
 
   insertClickEvents();
   buildPluginStatus();
+  insertQuickNotes();
 });
 
 function formatDate(date) {
@@ -195,4 +196,9 @@ function insertClickEvents() {
   document.getElementById("btn_save").addEventListener("click", (event) => {
     btn_saveClick(event);
   });
+}
+
+function insertQuickNotes() {
+let textarea = document.getElementById('textarea');
+buildQuickNotes(textarea);
 }
