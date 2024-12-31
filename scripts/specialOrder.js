@@ -3,16 +3,9 @@ window.addEventListener("load", async () => {
 
   insertClickEvents();
   buildPluginStatus();
+  insertQuickNotes();
 });
 
-function formatDate(date) {
-  let year = date.getFullYear();
-  let month = date.getMonth()+1;
-  let day = date.getDate();
-  let h = `0${date.getHours()}`.slice(-2);
-  let m = `0${date.getMinutes()}`.slice(-2);
-  return `${year}/${month}/${day} ${h}:${m}`;
-}
 
 function getRbcAg() {
   let rbc = [];
@@ -87,7 +80,7 @@ async function updateRbc(ptid, rbc) {
   data = data[ptid];
 
   data.rbc = rbc;
-  data.rbcLastUpdate = formatDate(new Date());
+  data.rbcLastUpdate = formatDateTime(new Date());
   await savePatientData(ptid, data);
 }
 
@@ -95,7 +88,7 @@ async function updateHla(ptid, hla) {
   let data = await loadPatientData(ptid);
   data = data[ptid];
   data.hla = hla;
-  data.hlaLastUpdate = formatDate(new Date());
+  data.hlaLastUpdate = formatDateTime(new Date());
   await savePatientData(ptid, data);
 }
 
@@ -195,4 +188,9 @@ function insertClickEvents() {
   document.getElementById("btn_save").addEventListener("click", (event) => {
     btn_saveClick(event);
   });
+}
+
+function insertQuickNotes() {
+  let textarea = document.getElementById('textarea');
+  buildQuickNotes(textarea);
 }

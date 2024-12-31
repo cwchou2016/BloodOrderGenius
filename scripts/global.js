@@ -114,6 +114,48 @@ function hideStatus() {
   }, 1000);
 }
 
+function buildQuickNotes(textarea) {
+  let dropdownDiv = document.createElement('div');
+  dropdownDiv.className = "dropdown";
+  
+  let dropdownBtn = document.createElement('a');
+  dropdownBtn.className = 'btn-del dropbtn';
+  dropdownBtn.innerText = '快速輸入';
+
+  let dropdownContent = document.createElement("div");
+  dropdownContent.className = "dropdown-content";
+
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate()+1);
+
+  let phrases = [
+    `今天(${formatSimpleDate(today)})`,
+    `明天(${formatSimpleDate(tomorrow)})`,
+    "團供",
+    "新鮮 A2 B2 O10",
+    "  大  小", 
+    " 洗滌 ",
+    "降轉PH",
+     "升LRPH"];
+  
+  for(let p of phrases){
+    let element = document.createElement('a');
+    element.innerText = p;
+    element.addEventListener("click", (e)=> {
+      textarea.value += e.target.innerText +" ";
+      textarea.focus();
+    })
+
+    dropdownContent.appendChild(element);
+  }
+
+  dropdownDiv.appendChild(dropdownBtn);
+  dropdownDiv.appendChild(dropdownContent);
+
+  textarea.parentNode.appendChild(dropdownDiv);
+}
+
 // Other
 
 function sleep(s) {
@@ -125,4 +167,19 @@ function sleep(s) {
 async function isExtensionOff() {
   let data = await chrome.storage.sync.get(["deactivate"]);
   return data["deactivate"];
+}
+
+function formatDateTime(date) {
+  let year = date.getFullYear();
+  let month = date.getMonth()+1;
+  let day = date.getDate();
+  let h = `0${date.getHours()}`.slice(-2);
+  let m = `0${date.getMinutes()}`.slice(-2);
+  return `${year}/${month}/${day} ${h}:${m}`;
+}
+
+function formatSimpleDate(date) {
+  let month = date.getMonth()+1;
+  let day = date.getDate();
+  return `${month}/${day}`;
 }
