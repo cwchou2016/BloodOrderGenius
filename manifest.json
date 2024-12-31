@@ -41,6 +41,12 @@
     },
     {
       "matches": [
+        "https://dh.blood.org.tw/hospital/application-bd_registed_table.htm"
+      ],
+      "js": ["scripts/bd_registed_table.js"]
+    },
+    {
+      "matches": [
         "https://dh.blood.org.tw/hospital/",
         "https://dh.blood.org.tw/hospital/index.htm",
         "https://dh.blood.org.tw/hospital/index_1.htm"
