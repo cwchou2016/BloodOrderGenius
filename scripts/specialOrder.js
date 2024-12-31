@@ -191,6 +191,6 @@ function insertClickEvents() {
 }
 
 function insertQuickNotes() {
-let textarea = document.getElementById('textarea');
-buildQuickNotes(textarea);
+  let textarea = document.getElementById('textarea');
+  buildQuickNotes(textarea);
 }

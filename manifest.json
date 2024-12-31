@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "血庫小精靈 Blood Order Genius",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "血液基金會醫院網路作業平台(https://dh.blood.org.tw/hospital/)之 Chrome 套件。",
   "icons": {
     "128": "icons/icon.png"
@@ -38,6 +38,18 @@
       ],
       "js": ["scripts/specialOrder.js"],
       "css": ["css/specialOrder.css"]
+    },
+    {
+      "matches": [
+        "https://dh.blood.org.tw/hospital/application-bd_registed_table.htm"
+      ],
+      "js": ["scripts/bd_registed_table.js"]
+    },
+    {
+      "matches": [
+        "https://dh.blood.org.tw/hospital/application-reuse_registed.htm"
+      ],
+      "js": ["scripts/reuse_registed.js"]
     },
     {
       "matches": [
