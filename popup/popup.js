@@ -7,10 +7,8 @@ document.getElementById("isActivate").addEventListener("click", () => {
   
   if (check) {
     turnOn();
-    show_quick_phrase();
   } else {
     turnOff();
-    hide_quick_phrase();
   }
 
   refresh();
@@ -45,12 +43,14 @@ function turnOn() {
   chrome.storage.sync.set({ ["deactivate"]: false });
   document.getElementById("status").innerText = "血庫小精靈工作中......";
   document.getElementById("isActivate").checked = true;
+  show_quick_phrase();
 }
 
 function turnOff() {
   chrome.storage.sync.set({ ["deactivate"]: true });
   document.getElementById("status").innerText = "休息中.....";
   document.getElementById("isActivate").checked = false;
+  hide_quick_phrase();
 }
 
 function hide_quick_phrase() {
