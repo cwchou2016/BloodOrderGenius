@@ -14,12 +14,6 @@ document.getElementById("isActivate").addEventListener("click", () => {
   refresh();
 });
 
-document.querySelectorAll(".del-btn").forEach(button => {
-  button.addEventListener("click", function () {
-      this.parentElement.remove(); // Remove the parent div
-  });
-});
-
 document.getElementById("save-phrase").addEventListener("click", ()=>{
   phrases = Array()
   document.querySelector(".quick-phrase").querySelectorAll(".option").forEach(e => {
@@ -60,6 +54,7 @@ document.getElementById("new-btn").addEventListener("click", ()=>{
   ele.appendChild(p);
 
   quick_phrases_html.appendChild(ele);
+  mapDelBtn();
   phrase_ele.select();
 })
 
@@ -85,6 +80,14 @@ function turnOff() {
   document.getElementById("status").innerText = "休息中.....";
   document.getElementById("isActivate").checked = false;
   hide_quick_phrase();
+}
+
+function mapDelBtn() {
+  document.querySelectorAll(".del-btn").forEach(button => {
+    button.addEventListener("click", function () {
+        this.parentElement.remove(); // Remove the parent div
+    });
+});
 }
 
 function hide_quick_phrase() {
