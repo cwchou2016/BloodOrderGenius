@@ -169,6 +169,11 @@ async function isExtensionOff() {
   return data["deactivate"];
 }
 
+async function updateQuickPhrases(data) {
+  await chrome.storage.sync.set({['quick_phrases']: data})
+  
+}
+
 function formatDateTime(date) {
   let year = date.getFullYear();
   let month = date.getMonth()+1;

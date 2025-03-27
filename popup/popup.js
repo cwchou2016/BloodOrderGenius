@@ -22,6 +22,15 @@ document.querySelectorAll(".del-btn").forEach(button => {
   });
 });
 
+document.getElementById("save-phrase").addEventListener("click", ()=>{
+  phrases = Array()
+  document.querySelector(".quick-phrase").querySelectorAll(".option").forEach(e => {
+    phrases.push(e.innerText);
+  })
+
+  updateQuickPhrases(phrases);
+})
+
 async function initExtension() {
   let deactivate = await isExtensionOff();
   console.log(deactivate);
