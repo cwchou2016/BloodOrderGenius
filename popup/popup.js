@@ -2,6 +2,8 @@ window.addEventListener("load", () => {
   initExtension();
 });
 
+editDisable();
+
 document.getElementById("isActivate").addEventListener("click", () => {
   let check = document.getElementById("isActivate").checked;
   
@@ -14,13 +16,18 @@ document.getElementById("isActivate").addEventListener("click", () => {
   refresh();
 });
 
-document.getElementById("save-phrase").addEventListener("click", ()=>{
+document.getElementById("edit-btn").addEventListener("click", ()=> {
+  editEnable();
+})
+
+document.getElementById("save-btn").addEventListener("click", ()=>{
   phrases = Array()
   document.querySelector(".quick-phrase").querySelectorAll(".option").forEach(e => {
     phrases.push(e.innerText);
   })
 
   updateQuickPhrases(phrases);
+  editDisable();
 })
 
 document.getElementById("new-btn").addEventListener("click", ()=>{
@@ -96,6 +103,31 @@ function hideQickPhrase() {
 
 function showQuickPhrase() {
   document.getElementById("quick-phrase-box").classList.remove("hide");
+}
+
+function editEnable() {
+  document.querySelectorAll(".edit").forEach(e => {
+    e.classList.remove("hide");
+  })
+
+  document.querySelectorAll(".del-btn").forEach(e => {
+    e.classList.remove("hide");
+  })
+
+  document.getElementById('edit-btn').classList.add("hide");
+  mapDelBtn();
+}
+
+function editDisable() {
+  document.querySelectorAll(".edit").forEach(e => {
+    e.classList.add("hide");
+  })
+
+  document.querySelectorAll(".del-btn").forEach(e => {
+    e.classList.add("hide");
+  })
+
+  document.getElementById('edit-btn').classList.remove("hide");
 }
 
 async function refresh() {
