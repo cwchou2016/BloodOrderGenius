@@ -29,6 +29,40 @@ document.getElementById("save-phrase").addEventListener("click", ()=>{
   updateQuickPhrases(phrases);
 })
 
+document.getElementById("new-btn").addEventListener("click", ()=>{
+  phrase_ele = document.getElementById("new-phrase");
+  phrase = phrase_ele.value.trim();
+  if(phrase==="") {
+    phrase_ele.select();
+    return;
+  }
+
+  quick_phrases_html = document.getElementsByClassName("quick-phrase")[0];
+
+  for(let e of quick_phrases_html.getElementsByClassName("option")) {
+    console.log(e.innerText);
+    if(e.innerText === phrase) {
+      phrase_ele.select();
+      return
+    }
+  }
+  
+  ele = document.createElement("div");
+  ele.className = "horizontal span";
+  btn = document.createElement("button");
+  btn.className="del-btn";
+  btn.innerText="-";
+  p = document.createElement("div");
+  p.className="option";
+  p.innerText = phrase;
+
+  ele.appendChild(btn);
+  ele.appendChild(p);
+
+  quick_phrases_html.appendChild(ele);
+  phrase_ele.select();
+})
+
 async function initExtension() {
   let deactivate = await isExtensionOff();
   console.log(deactivate);
