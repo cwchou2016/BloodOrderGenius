@@ -15,6 +15,11 @@
     color: gray;
 }
 
+.option {
+    flex-grow: 1;
+    padding: 3px;
+ }
+
 .vertical {
     display: flex;
     flex-direction: column;
@@ -22,6 +27,75 @@
     gap: 5px;
 }
 
+.horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* switch style start*/
+
+/* the size of the swith*/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switchBox {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 20px;
+    visibility: hidden;
+}
+
+/* background color of the switch*/
+.slider {
+    cursor:pointer;
+    position: absolute;
+    background-color: lightgray;
+
+    border: 0.5px solid rgb(195, 195, 195);
+
+    /*stretch the area*/
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+/*build slider in the switch*/
+.slider:before {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    top: 4.5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+/*behavior when switch is turned on*/
+/*change switch background-color*/
+.switchBox:checked + .slider {
+    background-color: rgb(200, 0, 0);
+}
+
+/*change position of the slider*/
+.switchBox:checked + .slider:before{
+    transform: translateX(20px);
+}
+
+/* switch style end*/
 #canvas {
     width: 300px;
     height: auto;
