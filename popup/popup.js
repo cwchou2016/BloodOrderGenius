@@ -119,26 +119,16 @@ function showQuickPhrase() {
 }
 
 function editEnable() {
-  document.querySelectorAll(".edit").forEach(e => {
-    e.classList.remove("hide");
-  })
-
-  document.querySelectorAll(".del-btn").forEach(e => {
-    e.classList.remove("hide");
-  })
+  document.documentElement.style.setProperty("--del-btn-display", "inline");
+  document.documentElement.style.setProperty("--edit-display", "flex");
 
   document.getElementById('edit-btn').classList.add("hide");
   mapDelBtn();
 }
 
 function editDisable() {
-  document.querySelectorAll(".edit").forEach(e => {
-    e.classList.add("hide");
-  })
-
-  document.querySelectorAll(".del-btn").forEach(e => {
-    e.classList.add("hide");
-  })
+  document.documentElement.style.setProperty("--del-btn-display", "none");
+  document.documentElement.style.setProperty("--edit-display", "none");
 
   document.getElementById('edit-btn').classList.remove("hide");
 }
