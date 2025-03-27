@@ -135,6 +135,10 @@ input {
 
 /* switch style end*/
 
+#version {
+    margin-left: auto;
+    font-size: 0.5em;
+}
 
 #new-phrase{
     display:inline-block;

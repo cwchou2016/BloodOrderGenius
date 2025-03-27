@@ -2,8 +2,6 @@ window.addEventListener("load", () => {
   initExtension();
 });
 
-editDisable();
-
 document.getElementById("isActivate").addEventListener("click", () => {
   let check = document.getElementById("isActivate").checked;
   
@@ -66,6 +64,11 @@ document.getElementById("new-btn").addEventListener("click", ()=>{
 })
 
 async function initExtension() {
+  editDisable();
+  let version = chrome.runtime.getManifest().version;
+
+  document.getElementById("version").innerText=`v${version}`
+
   let deactivate = await isExtensionOff();
   console.log(deactivate);
   if (deactivate) {
