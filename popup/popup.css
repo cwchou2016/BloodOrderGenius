@@ -68,6 +68,10 @@ input {
     width: 100%;
 }
 
+.hide {
+    display:none;
+}
+
 /* switch style start*/
 
 /* the size of the swith*/
