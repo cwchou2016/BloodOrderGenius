@@ -16,6 +16,12 @@ document.getElementById("isActivate").addEventListener("click", () => {
   refresh();
 });
 
+document.querySelectorAll(".del-btn").forEach(button => {
+  button.addEventListener("click", function () {
+      this.parentElement.remove(); // Remove the parent div
+  });
+});
+
 async function initExtension() {
   let deactivate = await isExtensionOff();
   console.log(deactivate);
