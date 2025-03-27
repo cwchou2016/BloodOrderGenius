@@ -36,30 +36,10 @@ document.getElementById("new-btn").addEventListener("click", ()=>{
     return;
   }
 
-  quick_phrases_html = document.getElementsByClassName("quick-phrase")[0];
+  insertQuickPhrase(phrase);
 
-  for(let e of quick_phrases_html.getElementsByClassName("option")) {
-    console.log(e.innerText);
-    if(e.innerText === phrase) {
-      phrase_ele.select();
-      return
-    }
-  }
-  
-  ele = document.createElement("div");
-  ele.className = "horizontal span";
-  btn = document.createElement("button");
-  btn.className="del-btn";
-  btn.innerText="-";
-  p = document.createElement("div");
-  p.className="option";
-  p.innerText = phrase;
-
-  ele.appendChild(btn);
-  ele.appendChild(p);
-
-  quick_phrases_html.appendChild(ele);
   mapDelBtn();
+  phrase.value = ""
   phrase_ele.select();
 })
 
@@ -92,6 +72,31 @@ function turnOff() {
   hideQickPhrase();
 }
 
+function insertQuickPhrase(phrase) {
+  quick_phrases_html = document.getElementsByClassName("quick-phrase")[0];
+
+  for(let e of quick_phrases_html.getElementsByClassName("option")) {
+    console.log(e.innerText);
+    if(e.innerText === phrase) {
+      return
+    }
+  }
+  
+  ele = document.createElement("div");
+  ele.className = "horizontal span";
+  btn = document.createElement("button");
+  btn.className="del-btn";
+  btn.innerText="-";
+  p = document.createElement("div");
+  p.className="option";
+  p.innerText = phrase;
+
+  ele.appendChild(btn);
+  ele.appendChild(p);
+
+  quick_phrases_html.appendChild(ele);
+}
+
 function mapDelBtn() {
   document.querySelectorAll(".del-btn").forEach(button => {
     button.addEventListener("click", function () {
@@ -106,6 +111,11 @@ function hideQickPhrase() {
 
 function showQuickPhrase() {
   document.getElementById("quick-phrase-box").classList.remove("hide");
+  loadQickPhrases().then(arr => {
+    arr.forEach(t => {
+      b = insertQuickPhrase(t)
+    })
+  })
 }
 
 function editEnable() {

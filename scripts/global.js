@@ -169,9 +169,12 @@ async function isExtensionOff() {
   return data["deactivate"];
 }
 
+async function loadQickPhrases() {
+  let data = await chrome.storage.sync.get(['quick_phrases']);
+  return data["quick_phrases"];
+}
 async function updateQuickPhrases(data) {
-  await chrome.storage.sync.set({['quick_phrases']: data})
-  
+  await chrome.storage.sync.set({['quick_phrases']: data});
 }
 
 function formatDateTime(date) {
