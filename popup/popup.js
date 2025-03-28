@@ -1,47 +1,49 @@
 window.addEventListener("load", () => {
   initExtension();
-});
 
-document.getElementById("isActivate").addEventListener("click", () => {
-  let check = document.getElementById("isActivate").checked;
-  
-  if (check) {
-    turnOn();
-  } else {
-    turnOff();
-  }
+  document.getElementById("isActivate").addEventListener("click", () => {
+    let check = document.getElementById("isActivate").checked;
+    
+    if (check) {
+      turnOn();
+    } else {
+      turnOff();
+    }
 
-  refresh();
-});
+    refresh();
+  });
 
-document.getElementById("edit-btn").addEventListener("click", ()=> {
-  editEnable();
-})
-
-document.getElementById("save-btn").addEventListener("click", ()=>{
-  phrases = Array()
-  document.querySelector(".quick-phrase").querySelectorAll(".option").forEach(e => {
-    phrases.push(e.innerText);
+  document.getElementById("edit-btn").addEventListener("click", ()=> {
+    editEnable();
   })
 
-  updateQuickPhrases(phrases);
-  editDisable();
-})
+  document.getElementById("save-btn").addEventListener("click", ()=>{
+    phrases = Array()
+    document.querySelector(".quick-phrase").querySelectorAll(".option").forEach(e => {
+      phrases.push(e.innerText);
+    })
 
-document.getElementById("new-btn").addEventListener("click", ()=>{
-  phrase_ele = document.getElementById("new-phrase");
-  phrase = phrase_ele.value.trim();
-  if(phrase==="") {
+    updateQuickPhrases(phrases);
+    editDisable();
+  })
+
+  document.getElementById("new-btn").addEventListener("click", ()=>{
+    phrase_ele = document.getElementById("new-phrase");
+    phrase = phrase_ele.value.trim();
+    if(phrase==="") {
+      phrase_ele.select();
+      return;
+    }
+
+    insertQuickPhrase(phrase);
+
+    mapDelBtn();
+    phrase_ele.value = ""
     phrase_ele.select();
-    return;
-  }
+  })
 
-  insertQuickPhrase(phrase);
+});
 
-  mapDelBtn();
-  phrase.value = ""
-  phrase_ele.select();
-})
 
 async function initExtension() {
   editDisable();
