@@ -20,6 +20,36 @@ input {
     margin: auto;
 }
 
+button {
+    cursor: pointer;
+    margin: auto;
+    font-size: 0.8em;
+    box-shadow: 1px 1px 2px rgba(73, 73, 73, 0.26);
+    transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:hover {
+    filter: brightness(1.1);
+}
+
+.del-btn{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    font-size: 0.8em;
+    font-weight: 700;
+    background-color: rgb(200, 0, 0);
+    color: white;
+    border-radius: 20px;
+    border: none;
+}
+
 .color {
     background-color: aqua;
 }
@@ -162,6 +192,31 @@ input {
     display:inline-block;
 
 }
+
+#new-btn{
+    background-color: rgb(101, 152, 24);
+    border: none;
+    color: white;
+    border-radius: 20px;
+    height: 25px;
+}
+
+#edit-btn {
+    background-color: rgb(98, 98, 98);
+    border: none;
+    color: white;
+    border-radius: 20px;
+    height: 25px;
+}
+
+#save-btn {
+    background-color: rgb(200,0, 0);
+    border: none;
+    color: white;
+    border-radius: 20px;
+    height: 25px;
+}
+
 #canvas {
     width: 300px;
     height: auto;
