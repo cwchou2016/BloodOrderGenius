@@ -25,6 +25,7 @@ window.addEventListener("load", () => {
 
     updateQuickPhrases(phrases);
     editDisable();
+    refresh();
   })
 
   document.getElementById("new-btn").addEventListener("click", ()=>{
@@ -40,6 +41,43 @@ window.addEventListener("load", () => {
     mapDelBtn();
     phrase_ele.value = ""
     phrase_ele.select();
+  })
+
+  // draggable
+
+  const quickPhraseEle = document.querySelector(".quick-phrase");
+  let dragEle = null;
+
+  quickPhraseEle.addEventListener("dragstart", (e) => {
+    if(e.target.classList.contains("item")) {
+      dragEle = e.target;
+      dragEle.classList.add("dragging")
+      // e.dataTransfer.effectAllowed = 'move';
+    }
+  })
+
+  quickPhraseEle.addEventListener("dragover", (e)=>{
+    e.preventDefault();
+    let target = e.target.closest(".item");
+
+    if(target!=dragEle && target && quickPhraseEle.contains(target)) {
+      const rect = target.getBoundingClientRect();
+      const isBelowHaf = (e.clientY - rect.top) > rect.height /2;
+
+      if(isBelowHaf) {
+        target.after(dragEle);
+      } else {
+        target.before(dragEle);
+      }
+    }
+  })
+
+  quickPhraseEle.addEventListener("drop", (e)=> {
+    e.preventDefault();
+    if(dragEle){
+      dragEle.classList.remove("dragging")
+      dragEle = null;
+    }
   })
 
 });
@@ -78,14 +116,15 @@ function insertQuickPhrase(phrase) {
   quick_phrases_html = document.getElementsByClassName("quick-phrase")[0];
 
   for(let e of quick_phrases_html.getElementsByClassName("option")) {
-    console.log(e.innerText);
     if(e.innerText === phrase) {
       return
     }
   }
   
   ele = document.createElement("div");
-  ele.className = "horizontal span";
+  ele.className = "horizontal span item";
+  ele.setAttribute("draggable", "True");
+
   btn = document.createElement("button");
   btn.className="del-btn";
   btn.innerText="-";
@@ -123,7 +162,9 @@ function showQuickPhrase() {
 function editEnable() {
   document.documentElement.style.setProperty("--del-btn-display", "inline");
   document.documentElement.style.setProperty("--edit-display", "flex");
-
+  document.querySelectorAll(".item").forEach(ele => {
+    ele.setAttribute("draggable", "True");
+  })
   document.getElementById('edit-btn').classList.add("hide");
   mapDelBtn();
 }
@@ -131,7 +172,9 @@ function editEnable() {
 function editDisable() {
   document.documentElement.style.setProperty("--del-btn-display", "none");
   document.documentElement.style.setProperty("--edit-display", "none");
-
+  document.querySelectorAll(".item").forEach(ele => {
+    ele.setAttribute("draggable", "False");
+  })
   document.getElementById('edit-btn').classList.remove("hide");
 }
 
