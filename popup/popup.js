@@ -1,5 +1,5 @@
 window.addEventListener("load", () => {
-  initExtension();
+  
 
   document.getElementById("isActivate").addEventListener("click", () => {
     const check = document.getElementById("isActivate").checked;
@@ -80,6 +80,9 @@ window.addEventListener("load", () => {
     }
   })
 
+
+  initExtension();
+
 });
 
 
@@ -102,6 +105,7 @@ function turnOn() {
   chrome.storage.sync.set({ ["deactivate"]: false });
   document.getElementById("status").innerText = "血庫小精靈工作中......";
   document.getElementById("isActivate").checked = true;
+  document.getElementsByClassName("quick-phrase")[0].innerHTML="";
   showQuickPhrase();
 }
 
