@@ -117,29 +117,29 @@ function turnOff() {
 }
 
 function insertQuickPhrase(phrase) {
-  quick_phrases_html = document.getElementsByClassName("quick-phrase")[0];
+  const quickPhrasesHtml = document.getElementsByClassName("quick-phrase")[0];
 
-  for(let e of quick_phrases_html.getElementsByClassName("option")) {
+  for(let e of quickPhrasesHtml.getElementsByClassName("option")) {
     if(e.innerText === phrase) {
       return
     }
   }
   
-  ele = document.createElement("div");
+  const ele = document.createElement("div");
   ele.className = "horizontal span item";
   ele.setAttribute("draggable", "True");
 
-  btn = document.createElement("button");
+  const btn = document.createElement("button");
   btn.className="del-btn";
   btn.innerText="-";
-  p = document.createElement("div");
+  const p = document.createElement("div");
   p.className="option";
   p.innerText = phrase;
 
   ele.appendChild(btn);
   ele.appendChild(p);
 
-  quick_phrases_html.appendChild(ele);
+  quickPhrasesHtml.appendChild(ele);
 }
 
 function mapDelBtn() {
