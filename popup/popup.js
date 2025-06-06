@@ -123,7 +123,7 @@ function insertQuickPhrase(phrase) {
   
   ele = document.createElement("div");
   ele.className = "horizontal span item";
-  ele.setAttribute("draggable", "True");
+  ele.setAttribute("draggable", "False");
 
   btn = document.createElement("button");
   btn.className="del-btn";
