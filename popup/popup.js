@@ -1,6 +1,5 @@
 window.addEventListener("load", () => {
   
-
   document.getElementById("isActivate").addEventListener("click", () => {
     const check = document.getElementById("isActivate").checked;
     
@@ -43,8 +42,13 @@ window.addEventListener("load", () => {
     phraseEle.select();
   })
 
-  // draggable
+  quickPhraseDraggable();
 
+  initExtension();
+
+});
+
+async function quickPhraseDraggable() {
   const quickPhraseEle = document.querySelector(".quick-phrase");
   let dragEle = null;
 
@@ -79,12 +83,7 @@ window.addEventListener("load", () => {
       dragEle = null;
     }
   })
-
-
-  initExtension();
-
-});
-
+}
 
 async function initExtension() {
   editDisable();
