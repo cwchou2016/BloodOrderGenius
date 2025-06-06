@@ -29,18 +29,18 @@ window.addEventListener("load", () => {
   })
 
   document.getElementById("new-btn").addEventListener("click", ()=>{
-    phrase_ele = document.getElementById("new-phrase");
-    phrase = phrase_ele.value.trim();
+    phraseEle = document.getElementById("new-phrase");
+    phrase = phraseEle.value.trim();
     if(phrase==="") {
-      phrase_ele.select();
+      phraseEle.select();
       return;
     }
 
     insertQuickPhrase(phrase);
 
     mapDelBtn();
-    phrase_ele.value = ""
-    phrase_ele.select();
+    phraseEle.value = ""
+    phraseEle.select();
   })
 
   // draggable
