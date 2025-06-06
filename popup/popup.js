@@ -2,7 +2,7 @@ window.addEventListener("load", () => {
   initExtension();
 
   document.getElementById("isActivate").addEventListener("click", () => {
-    let check = document.getElementById("isActivate").checked;
+    const check = document.getElementById("isActivate").checked;
     
     if (check) {
       turnOn();
@@ -18,7 +18,7 @@ window.addEventListener("load", () => {
   })
 
   document.getElementById("save-btn").addEventListener("click", ()=>{
-    phrases = Array()
+    const phrases = Array()
     document.querySelector(".quick-phrase").querySelectorAll(".option").forEach(e => {
       phrases.push(e.innerText);
     })
@@ -29,8 +29,8 @@ window.addEventListener("load", () => {
   })
 
   document.getElementById("new-btn").addEventListener("click", ()=>{
-    phraseEle = document.getElementById("new-phrase");
-    phrase = phraseEle.value.trim();
+    const phraseEle = document.getElementById("new-phrase");
+    let phrase = phraseEle.value.trim();
     if(phrase==="") {
       phraseEle.select();
       return;
