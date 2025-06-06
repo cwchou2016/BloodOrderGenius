@@ -123,7 +123,7 @@ function insertQuickPhrase(phrase) {
   
   ele = document.createElement("div");
   ele.className = "horizontal span item";
-  ele.setAttribute("draggable", "False");
+  ele.setAttribute("draggable", "True");
 
   btn = document.createElement("button");
   btn.className="del-btn";
@@ -155,7 +155,8 @@ function showQuickPhrase() {
   loadQickPhrases().then(arr => {
     arr.forEach(t => {
       b = insertQuickPhrase(t)
-    })
+    });
+    editDisable();
   })
 }
 
