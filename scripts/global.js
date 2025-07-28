@@ -114,6 +114,7 @@ function hideStatus() {
   }, 1000);
 }
 
+// quick phrases
 async function buildQuickNotes(textarea) {
   let dropdownDiv = document.createElement('div');
   dropdownDiv.className = "dropdown";
@@ -161,6 +162,19 @@ async function createPhraseElements() {
   return phraseElements;
 }
 
+async function loadQickPhrases() {
+  let data = await chrome.storage.sync.get(['quick_phrases']);
+  return data["quick_phrases"];
+}
+async function updateQuickPhrases(data) {
+  await chrome.storage.sync.set({['quick_phrases']: data});
+}
+
+async function defaultQickPhrase() {
+  let data = new Array('團供','新鮮 A2 B2 O10','大 小','早上','晚上','洗滌');
+  await updateQuickPhrases(data);
+}
+
 // Other
 
 function sleep(s) {
@@ -172,14 +186,6 @@ function sleep(s) {
 async function isExtensionOff() {
   let data = await chrome.storage.sync.get(["deactivate"]);
   return data["deactivate"];
-}
-
-async function loadQickPhrases() {
-  let data = await chrome.storage.sync.get(['quick_phrases']);
-  return data["quick_phrases"];
-}
-async function updateQuickPhrases(data) {
-  await chrome.storage.sync.set({['quick_phrases']: data});
 }
 
 function formatDateTime(date) {

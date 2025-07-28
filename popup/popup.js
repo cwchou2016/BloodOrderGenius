@@ -1,16 +1,4 @@
 window.addEventListener("load", () => {
-  
-  document.getElementById("isActivate").addEventListener("click", () => {
-    const check = document.getElementById("isActivate").checked;
-    
-    if (check) {
-      turnOn();
-    } else {
-      turnOff();
-    }
-
-    refresh();
-  });
 
   document.getElementById("edit-btn").addEventListener("click", ()=> {
     editEnable();
@@ -43,9 +31,21 @@ window.addEventListener("load", () => {
   })
 
   quickPhraseDraggable();
+  
+  
+  document.getElementById("isActivate").addEventListener("click", () => {
+    const check = document.getElementById("isActivate").checked;
+    
+    if (check) {
+      turnOn();
+    } else {
+      turnOff();
+    }
+
+    refresh();
+  });
 
   initExtension();
-
 });
 
 async function quickPhraseDraggable() {
@@ -87,12 +87,16 @@ async function quickPhraseDraggable() {
 
 async function initExtension() {
   editDisable();
-  let version = chrome.runtime.getManifest().version;
-
+  let version = await chrome.runtime.getManifest().version;
   document.getElementById("version").innerText=`v${version}`
 
+  let phrases = await loadQickPhrases();
+  if(phrases.length===0) {
+    await defaultQickPhrase();
+  }
+
   let deactivate = await isExtensionOff();
-  console.log(deactivate);
+
   if (deactivate) {
     turnOff();
     return;
