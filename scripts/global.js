@@ -114,7 +114,8 @@ function hideStatus() {
   }, 1000);
 }
 
-function buildQuickNotes(textarea) {
+// quick phrases
+async function buildQuickNotes(textarea) {
   let dropdownDiv = document.createElement('div');
   dropdownDiv.className = "dropdown";
   
@@ -125,6 +126,21 @@ function buildQuickNotes(textarea) {
   let dropdownContent = document.createElement("div");
   dropdownContent.className = "dropdown-content";
 
+  for(let ele of await createPhraseElements()) {
+    ele.addEventListener("click", e =>{
+      textarea.value += e.target.innerText + " ";
+      textarea.focus();
+    })
+    dropdownContent.appendChild(ele);
+  }
+
+  dropdownDiv.appendChild(dropdownBtn);
+  dropdownDiv.appendChild(dropdownContent);
+
+  textarea.parentNode.appendChild(dropdownDiv);
+}
+
+async function createPhraseElements() {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate()+1);
@@ -132,28 +148,26 @@ function buildQuickNotes(textarea) {
   let phrases = [
     `今天(${formatSimpleDate(today)})`,
     `明天(${formatSimpleDate(tomorrow)})`,
-    "團供",
-    "新鮮 A2 B2 O10",
-    "  大  小", 
-    " 洗滌 ",
-    "降轉PH",
-     "升LRPH"];
-  
-  for(let p of phrases){
+  ];
+
+  phrases.push(...await loadQuickPhrases());
+
+  let phraseElements = Array();
+  for(let p of phrases) {
     let element = document.createElement('a');
     element.innerText = p;
-    element.addEventListener("click", (e)=> {
-      textarea.value += e.target.innerText +" ";
-      textarea.focus();
-    })
-
-    dropdownContent.appendChild(element);
+    phraseElements.push(element);
   }
 
-  dropdownDiv.appendChild(dropdownBtn);
-  dropdownDiv.appendChild(dropdownContent);
+  return phraseElements;
+}
 
-  textarea.parentNode.appendChild(dropdownDiv);
+async function loadQuickPhrases() {
+  let data = await chrome.storage.sync.get(['quick_phrases']);
+  return data["quick_phrases"];
+}
+async function updateQuickPhrases(data) {
+  await chrome.storage.sync.set({['quick_phrases']: data});
 }
 
 // Other
