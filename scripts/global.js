@@ -150,7 +150,7 @@ async function createPhraseElements() {
     `明天(${formatSimpleDate(tomorrow)})`,
   ];
 
-  phrases.push(...await loadQickPhrases());
+  phrases.push(...await loadQuickPhrases());
 
   let phraseElements = Array();
   for(let p of phrases) {
@@ -162,7 +162,7 @@ async function createPhraseElements() {
   return phraseElements;
 }
 
-async function loadQickPhrases() {
+async function loadQuickPhrases() {
   let data = await chrome.storage.sync.get(['quick_phrases']);
   return data["quick_phrases"];
 }

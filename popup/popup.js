@@ -112,7 +112,7 @@ function turnOff() {
   chrome.storage.sync.set({ ["deactivate"]: true });
   document.getElementById("status").innerText = "休息中.....";
   document.getElementById("isActivate").checked = false;
-  hideQickPhrase();
+  hideQuickPhrase();
 }
 
 function insertQuickPhrase(phrase) {
@@ -149,13 +149,13 @@ function mapDelBtn() {
 });
 }
 
-function hideQickPhrase() {
+function hideQuickPhrase() {
   document.getElementById("quick-phrase-box").classList.add("hide");
 }
 
 function showQuickPhrase() {
   document.getElementById("quick-phrase-box").classList.remove("hide");
-  loadQickPhrases().then(arr => {
+  loadQuickPhrases().then(arr => {
     arr.forEach(t => {
       b = insertQuickPhrase(t)
     });
