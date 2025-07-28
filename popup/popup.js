@@ -90,10 +90,6 @@ async function initExtension() {
   let version = await chrome.runtime.getManifest().version;
   document.getElementById("version").innerText=`v${version}`
 
-  let phrases = await loadQickPhrases();
-  if(phrases.length===0) {
-    await defaultQickPhrase();
-  }
 
   let deactivate = await isExtensionOff();
 

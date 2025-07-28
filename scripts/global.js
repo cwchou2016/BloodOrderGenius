@@ -170,11 +170,6 @@ async function updateQuickPhrases(data) {
   await chrome.storage.sync.set({['quick_phrases']: data});
 }
 
-async function defaultQickPhrase() {
-  let data = new Array('團供','新鮮 A2 B2 O10','大 小','早上','晚上','洗滌');
-  await updateQuickPhrases(data);
-}
-
 // Other
 
 function sleep(s) {
