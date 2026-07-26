@@ -1,3 +1,19 @@
+/**
+ * Fetch html content from the Taiwan Blood Foundation website.
+ * @returns {Promise<string>} The HTML content of the page.
+ * @throws Will throw an error if the HTTP request fails.
+ */
+async function fetchBloodWebsite() {
+    const response = await fetch("https://www.blood.org.tw/");
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const htmlText = await response.text();
+    return htmlText;
+}
+
+
 async function loadQuickPhrases() {
   let data = await chrome.storage.sync.get(['quick_phrases']);
   return data["quick_phrases"];
@@ -35,4 +51,19 @@ chrome.runtime.onInstalled.addListener(async (details) => {
       await defaultQuickPhrase();
       await updateLastVersion(version);
     }
+  });
+
+
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === "FETCH_INVENTORY") {
+      fetchBloodWebsite()
+      .then((htmlText) => {
+        sendResponse({ok:true,htmlText});
+      })
+      .catch((error) => {
+        console.error("Error fetching blood website:", error);
+        sendResponse({ ok: false, error: error.message });
+      }); 
+    }
+    return true
   });
