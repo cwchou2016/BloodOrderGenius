@@ -1,4 +1,4 @@
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("edit-btn").addEventListener("click", ()=> {
     editEnable();
