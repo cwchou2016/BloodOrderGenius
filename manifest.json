@@ -28,7 +28,8 @@
     {
       "matches": ["https://dh.blood.org.tw/hospital/*"],
       "js": [
-        "scripts/global.js"
+        "scripts/global.js",
+        "scripts/tools.js"
       ],
       "css": ["css/global.css"]
     },
