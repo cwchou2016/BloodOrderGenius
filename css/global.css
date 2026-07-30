@@ -163,3 +163,13 @@
   font-size: xx-small;
   border-radius: 6px;
 }
+
+.source-link {
+  text-align: right;
+  margin-top: 16px;
+  font-size: xx-small;
+}
+
+.update-time {
+  color: rgb(139, 139, 139);
+}
