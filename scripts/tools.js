@@ -20,6 +20,10 @@ function buildInventory() {
     const sourceLink = document.createElement('div');
     sourceLink.className = 'source-link';
     sourceLink.innerHTML = `<a href="https://www.blood.org.tw/" target="_blank">資料來源: 血液基金會</a>`;
+    const updateTime = document.createElement('div');
+    updateTime.className = 'update-time';
+    updateTime.innerText = '更新時間: 請稍候...';
+    
 
     // build inventory data
     const inventoryContainer = document.createElement('div');
@@ -55,12 +59,15 @@ function buildInventory() {
             });
             inventoryContainer.appendChild(centerDiv);
         });
+
+        updateTime.innerText = `${data.date}`;
     });
     
 
     fieldset.appendChild(inventoryContainer);
     fieldset.appendChild(figLegend);
     fieldset.appendChild(sourceLink);
+    sourceLink.appendChild(updateTime);
 
     return fieldset;
 }
