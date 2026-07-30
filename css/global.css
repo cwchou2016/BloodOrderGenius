@@ -143,3 +143,23 @@
     background-color: #9aa0a6;
     /* Gray */
 }
+
+/* Legend styles */
+.legend {
+  display: flex;
+  justify-content: center;
+  font-size: 5px;
+  gap: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: white;
+  padding: 4px 8px;
+  text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  font-size: xx-small;
+  border-radius: 6px;
+}
