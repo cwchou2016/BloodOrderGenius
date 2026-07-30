@@ -12,9 +12,9 @@ function buildInventory() {
     const figLegend = document.createElement('div');
     figLegend.className = 'legend';
     figLegend.innerHTML = `
-        <div class="legend-item"><span class="indicator status-Normal"></span> 正常 (>7 Days)</div>
-        <div class="legend-item"><span class="indicator status-Low"></span> 偏低 (4-7 Days)</div>
-        <div class="legend-item"><span class="indicator status-Urgent"></span> 急缺 (<4 Days)</div>`;
+        <div class="legend-item status-Normal"><span class="indicator status-Normal"></span> 正常 (>7 Days)</div>
+        <div class="legend-item status-Low"><span class="indicator status-Low"></span> 偏低 (4-7 Days)</div>
+        <div class="legend-item status-Urgent"><span class="indicator status-Urgent"></span> 急缺 (<4 Days)</div>`;
 
     // build source link
     const sourceLink = document.createElement('div');
