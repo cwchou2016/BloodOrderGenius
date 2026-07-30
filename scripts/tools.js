@@ -22,7 +22,40 @@ function buildInventory() {
     sourceLink.innerHTML = `<a href="https://www.blood.org.tw/" target="_blank">資料來源: 血液基金會</a>`;
 
     // build inventory data
+    const inventoryContainer = document.createElement('div');
+    inventoryContainer.id = 'inventory-container';
+    inventoryContainer.innerHTML = `<div class="loading-spinner">載入中...</div>`;
 
+    const centerNames = ['台北捐血中心', '新竹捐血中心', '台中捐血中心', '高雄捐血中心'];
+    const bloodTypes = ['A','B','O','AB'];
+    const stockLevels = {
+        '偏低': 'status-Low',
+        '正常': 'status-Normal',
+        '急缺': 'status-Urgent'
+    };
+
+    centerNames.forEach(center => {
+        const centerDiv = document.createElement('div');
+        centerDiv.className = 'center-card';
+        centerDiv.innerHTML = `<div class="center-name">${center}</div>`;
+        inventoryContainer.appendChild(centerDiv);
+
+        const bloodGrid = document.createElement('div');
+        bloodGrid.className = 'blood-grid';
+        centerDiv.appendChild(bloodGrid);
+
+        bloodTypes.forEach(bt => {
+            const bloodTypeDiv = document.createElement('div');
+            bloodTypeDiv.className = `blood-type`;
+            bloodTypeDiv.textContent = bt;
+            bloodGrid.appendChild(bloodTypeDiv);
+        });
+        inventoryContainer.appendChild(centerDiv);
+    });
+
+    
+
+    fieldset.appendChild(inventoryContainer);
     fieldset.appendChild(figLegend);
     fieldset.appendChild(sourceLink);
 
