@@ -34,25 +34,28 @@ function buildInventory() {
         '急缺': 'status-Urgent'
     };
 
-    centerNames.forEach(center => {
-        const centerDiv = document.createElement('div');
-        centerDiv.className = 'center-card';
-        centerDiv.innerHTML = `<div class="center-name">${center}</div>`;
-        inventoryContainer.appendChild(centerDiv);
+    get_inventory_data().then(data => {
+        centerNames.forEach(center => {
+            const centerDiv = document.createElement('div');
+            centerDiv.className = 'center-card';
+            centerDiv.innerHTML = `<div class="center-name">${center}</div>`;
+            inventoryContainer.appendChild(centerDiv);
 
-        const bloodGrid = document.createElement('div');
-        bloodGrid.className = 'blood-grid';
-        centerDiv.appendChild(bloodGrid);
+            const bloodGrid = document.createElement('div');
+            bloodGrid.className = 'blood-grid';
+            centerDiv.appendChild(bloodGrid);
 
-        bloodTypes.forEach(bt => {
-            const bloodTypeDiv = document.createElement('div');
-            bloodTypeDiv.className = `blood-type`;
-            bloodTypeDiv.textContent = bt;
-            bloodGrid.appendChild(bloodTypeDiv);
+            bloodTypes.forEach(bt => {
+                const bloodTypeDiv = document.createElement('div');
+                bloodTypeDiv.className = `blood-type`;
+                bloodTypeDiv.textContent = bt;
+                bloodTypeDiv.title = data.content[center][bt] || '未知';
+                bloodTypeDiv.classList.add(stockLevels[data.content[center][bt]] || 'status-Unknown');
+                bloodGrid.appendChild(bloodTypeDiv);
+            });
+            inventoryContainer.appendChild(centerDiv);
         });
-        inventoryContainer.appendChild(centerDiv);
     });
-
     
 
     fieldset.appendChild(inventoryContainer);
