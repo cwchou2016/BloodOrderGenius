@@ -1,4 +1,23 @@
 /**
+ * Builds the inventory section of the plugin, including the legend, source link, and inventory data.
+ * @returns {HTMLElement} The constructed inventory section as a fieldset element.
+ */
+function buildInventory() {
+    // build inventory section
+    const fieldset = document.createElement('fieldset');
+    fieldset.className = 'fieldsetStyle1';
+    fieldset.appendChild(document.createElement('legend')).innerText = '庫存資訊';
+
+    // build figure legned
+
+    // build source link
+
+    // build inventory data
+
+    return fieldset;
+}
+
+/**
  * Parse the inventory data from the blood website and return it as an object.
  * @returns {Promise<Object>} The parsed inventory data.
  * @throws Will throw an error if the HTML structure is not as expected.
