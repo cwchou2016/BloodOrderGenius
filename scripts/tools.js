@@ -9,10 +9,22 @@ function buildInventory() {
     fieldset.appendChild(document.createElement('legend')).innerText = '庫存資訊';
 
     // build figure legned
+    const figLegend = document.createElement('div');
+    figLegend.className = 'legend';
+    figLegend.innerHTML = `
+        <div class="legend-item"><span class="indicator status-Normal"></span> 正常 (>7 Days)</div>
+        <div class="legend-item"><span class="indicator status-Low"></span> 偏低 (4-7 Days)</div>
+        <div class="legend-item"><span class="indicator status-Urgent"></span> 急缺 (<4 Days)</div>`;
 
     // build source link
+    const sourceLink = document.createElement('div');
+    sourceLink.className = 'source-link';
+    sourceLink.innerHTML = `<a href="https://www.blood.org.tw/" target="_blank">資料來源: 血液基金會</a>`;
 
     // build inventory data
+
+    fieldset.appendChild(figLegend);
+    fieldset.appendChild(sourceLink);
 
     return fieldset;
 }
