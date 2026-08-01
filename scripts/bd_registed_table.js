@@ -3,9 +3,9 @@ window.addEventListener("load", async () => {
   
     buildPluginStatus();
     insertQuickNotes();
-  });
+});
 
-  function insertQuickNotes() {
-    let textarea = document.getElementById('textarea_note');
-    buildQuickNotes(textarea);
-  }
+function insertQuickNotes() {
+  let textarea = document.getElementById('textarea_note');
+  buildQuickNotes(textarea);
+}
