@@ -38,7 +38,7 @@ function buildInventory() {
         '急缺': 'status-Urgent'
     };
 
-    get_inventory_data().then(data => {
+    getInventoryData().then(data => {
         inventoryContainer.innerHTML = '';
         centerNames.forEach(center => {
             const centerDiv = document.createElement('div');
@@ -80,7 +80,7 @@ function buildInventory() {
  * @returns {Promise<Object>} The parsed inventory data.
  * @throws Will throw an error if the HTML structure is not as expected.
  */
-async function get_inventory_data() {
+async function getInventoryData() {
     const response = await chrome.runtime.sendMessage({ type: "FETCH_INVENTORY" });
 
     if (!response.ok) {
