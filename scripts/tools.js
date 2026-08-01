@@ -39,6 +39,7 @@ function buildInventory() {
     };
 
     get_inventory_data().then(data => {
+        inventoryContainer.innerHTML = '';
         centerNames.forEach(center => {
             const centerDiv = document.createElement('div');
             centerDiv.className = 'center-card';
@@ -59,8 +60,10 @@ function buildInventory() {
             });
             inventoryContainer.appendChild(centerDiv);
         });
-
         updateTime.innerText = `${data.date}`;
+    }).catch(error => {
+        console.error('Error fetching inventory data:', error);
+        inventoryContainer.innerHTML = `<div class="error-message">無法載入庫存資訊，請稍後再試。</div>`;
     });
     
 
