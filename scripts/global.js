@@ -150,7 +150,7 @@ async function buildQuickNotes(textarea) {
   const datePickerBtn = document.createElement('a');
   datePickerBtn.className = "btn-del dropbtn";
   datePickerBtn.setAttribute("id", "datepicker-btn");
-  datePickerBtn.innerText = "日期選擇";
+  datePickerBtn.innerText = "輸入日期";
 
   const calendarDiv = document.createElement('div');
   calendarDiv.setAttribute("id", "calendar");
@@ -185,6 +185,12 @@ async function buildQuickNotes(textarea) {
 
   $("#calendar").on("mouseleave", function() {
     $("#calendar").hide();
+  });
+
+  document.addEventListener("click", function(event) {
+    if (!datepickerDiv.contains(event.target)) {
+      $("#calendar").hide();
+    }
   });
 }
 
