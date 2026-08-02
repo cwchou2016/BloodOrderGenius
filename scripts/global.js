@@ -116,6 +116,9 @@ function hideStatus() {
 
 // quick phrases
 async function buildQuickNotes(textarea) {
+  const btnBar = document.createElement("div");
+
+  // create quick phrases dropdown button
   let dropdownDiv = document.createElement('div');
   dropdownDiv.className = "dropdown";
   
@@ -137,7 +140,51 @@ async function buildQuickNotes(textarea) {
   dropdownDiv.appendChild(dropdownBtn);
   dropdownDiv.appendChild(dropdownContent);
 
-  textarea.parentNode.appendChild(dropdownDiv);
+  btnBar.appendChild(dropdownDiv);
+
+  // create date picker button
+  const datepickerDiv = document.createElement('div');
+  datepickerDiv.className = "dropdown";
+
+  const datePickerBtn = document.createElement('a');
+  datePickerBtn.className = "btn-del dropbtn";
+  datePickerBtn.setAttribute("id", "datepicker-btn");
+  datePickerBtn.innerText = "日期選擇";
+
+  const calendarDiv = document.createElement('div');
+  calendarDiv.setAttribute("id", "calendar");
+  calendarDiv.className = "calendar";
+
+  datepickerDiv.appendChild(datePickerBtn);
+  datepickerDiv.appendChild(calendarDiv);
+  btnBar.appendChild(datepickerDiv);
+
+
+  // show dropdown menu bar
+  textarea.parentNode.appendChild(btnBar);
+
+  // jquery should be loaded after the element is created, otherwise it will not work
+  $("#calendar").hide();
+
+  $("#calendar").datepicker({
+    dateFormat: "mm/dd(DD)",
+    changeYear: true,
+    changeMonth: true,
+    dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"],
+    dayNames: ["日", "一", "二", "三", "四", "五", "六"],
+    minDate: new Date(),
+    onSelect: function(dateText) {
+      textarea.value += " " + dateText;
+    }
+  });
+
+  $("#datepicker-btn").on("mouseenter", function() {
+    $("#calendar").show();
+  });
+
+  $("#calendar").on("mouseleave", function() {
+    $("#calendar").hide();
+  });
 }
 
 async function createPhraseElements() {
