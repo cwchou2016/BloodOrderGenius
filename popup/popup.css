@@ -122,12 +122,21 @@ button:hover {
     width: 100%;
 }
 
+.flex {
+    display: flex;
+    align-items: center;
+}
+
 .hide {
     display:none;
 }
 
 .edit {
     display: var(--edit-display);
+}
+
+.link-item {
+    margin-right: 10px;
 }
 
 /* switch style start*/
