@@ -117,6 +117,7 @@ function hideStatus() {
 // quick phrases
 async function buildQuickNotes(textarea) {
   const btnBar = document.createElement("div");
+  btnBar.className = "dropbtn-bar";
 
   // create quick phrases dropdown button
   let dropdownDiv = document.createElement('div');

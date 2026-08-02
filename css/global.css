@@ -44,10 +44,13 @@
 }
 
 /* The container <div> - needed to position the dropdown content */
+.dropbtn-bar {
+  display: flex;
+}
+
 .dropdown {
   position: relative;
-  display: inline-block;
-  min-width: 100%;
+  margin-right: 16px;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -59,6 +62,7 @@
 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   border: 1px solid #ddd; 
+  min-width: 120px;
 
    /* Make the menu scrollable */
    max-height: 200px;  /* Maximum height before scrolling starts */
@@ -83,6 +87,10 @@
   display: block;
 }
 
+.calendar {
+  position: absolute;
+  z-index: 9999;
+}
 
 /* Style inventory fieldset*/
 #inventory-container {
