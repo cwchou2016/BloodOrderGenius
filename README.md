@@ -88,7 +88,7 @@
 	![](images/on.png) 
 	![](images/off.png)
 
-- 捐血中心庫存
+- 「一般訂血申請(表單式)」畫面顯示捐血中心庫存捐血中心庫存
 
 	![](images/inventory.png)
 	
