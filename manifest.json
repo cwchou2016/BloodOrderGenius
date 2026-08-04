@@ -49,6 +49,12 @@
     },
     {
       "matches": [
+        "https://dh.blood.org.tw/hospital/application-sb.htm"
+      ],
+      "js": ["scripts/application-sb.js"]
+    },
+    {
+      "matches": [
         "https://dh.blood.org.tw/hospital/application-bd_registed_table.htm"
       ],
       "js": ["scripts/bd_registed_table.js"]
