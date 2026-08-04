@@ -97,8 +97,20 @@ async function buildQuickNotes(textarea) {
     }
   });
 
+  let timeout;
+
   $("#datepicker-btn").on("mouseenter", function() {
     $("#calendar").show();
+  });
+
+  $("#datepicker-btn").on("mouseleave", function() {
+    timeout = setTimeout(() => {
+      $("#calendar").hide();
+    }, 100);
+  });
+
+  $("#calendar").on("mouseenter", function() {
+    clearTimeout(timeout);
   });
 
   $("#calendar").on("mouseleave", function() {
