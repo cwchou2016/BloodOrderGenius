@@ -62,7 +62,7 @@ async function confirmDownloadOrder(orderNumber) {
   console.log(orderNumber, msg);
   if (msg == "已供出") {
     // confirm order
-    responseData = await confirmOrder(orderNumber);
+    responseData = await confirmShipment(orderNumber);
     if (responseData["statusCode"] != "900") {
       console.log(responseData);
       updateStatusInfo(orderNumber, "確認失敗");
