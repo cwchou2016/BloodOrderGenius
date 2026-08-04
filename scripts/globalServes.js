@@ -6,11 +6,21 @@ const downloadEDI_api =
 const confirm_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/confirm";
 const checkToken_api = getOrigin() + "/tbsf-api/check_token";
 
+
 // Server methods
+/**
+ * Gets the origin URL of the current page.
+ * @returns {string} The origin URL.
+ */
 function getOrigin() {
   return document.location.origin;
 }
 
+
+/**
+ * Checks if the access token stored in cookies is valid by sending a request to the server.
+ * @returns {Promise<boolean>} A promise that resolves to true if the token is valid, false otherwise.
+ */
 async function isTokenValid() {
   response = await fetch(checkToken_api, {
     method: "POST",
@@ -25,6 +35,11 @@ async function isTokenValid() {
   return data["statusCode"] == "1009";
 }
 
+
+/**
+ * Retrieves the value of the 'hos_tk_id' token from the browser's cookies.
+ * @returns {string|null} The value of the token if found, otherwise null.
+ */
 function getToken() {
   let cookies = document.cookie.split(";");
   for (let c of cookies) {
@@ -34,8 +49,15 @@ function getToken() {
       return `${value[1]}`;
     }
   }
+  return null;
 }
 
+
+/**
+ * Queries the order information from the server.
+ * @param {string} orderNumber - The order number to query.
+ * @returns {Promise<any>} A promise that resolves to the order information.  
+ */
 async function queryOrder(orderNumber = "") {
   let payload = {
     bagNoType: 1,
@@ -59,7 +81,13 @@ async function queryOrder(orderNumber = "") {
   return data["responseData"];
 }
 
-async function confirmOrder(orderNumber) {
+
+/**
+ * Confirms a shipment on the server.
+ * @param {string} orderNumber - The order number to confirm.
+ * @returns {Promise<any>} A promise that resolves to the confirmation response.
+ */
+async function confirmShipment(orderNumber) {
   let payload = `pkAk=${orderNumber}`;
 
   response = await fetch(confirm_api, {
@@ -73,6 +101,13 @@ async function confirmOrder(orderNumber) {
   let data = await response.json();
   return data;
 }
+
+
+/**
+ * Checks if the EDI file for a given order number is valid.
+ * @param {string} orderNumber - The order number to check.
+ * @returns {Promise<boolean>} A promise that resolves to true if the EDI file is valid, false otherwise.
+ */
 async function checkEDI(orderNumber) {
   let payload = {
     bldSupOrdNo: orderNumber,
@@ -91,163 +126,13 @@ async function checkEDI(orderNumber) {
   return data["responseData"]["isCut"];
 }
 
+
+/**
+ * Generates the download link for the EDI file for a given order number.
+ * @param {string} orderNumber - The order number for which to generate the download link.
+ * @returns {string} The download link for the EDI file.
+ */
 function getEdiLink(orderNumber) {
   let para = `?bldSupOrdNo=${orderNumber}&access_token=${getToken()}`;
   return `${downloadEDI_api}${para}`;
-}
-
-// Modify UI events
-function buildPluginStatus() {
-  const statusDiv = document.createElement("div");
-  statusDiv.setAttribute("id", "plugin_status");
-  statusDiv.innerHTML = "<label>☺ 血庫小精靈工作中....</label>";
-  document.body.appendChild(statusDiv);
-
-  statusDiv.addEventListener("click", () => hideStatus());
-}
-
-function hideStatus() {
-  const statusDiv = document.getElementById("plugin_status");
-  statusDiv.className = "hide";
-  setTimeout(() => {
-    statusDiv.className = "";
-  }, 1000);
-}
-
-// quick phrases
-async function buildQuickNotes(textarea) {
-  const btnBar = document.createElement("div");
-  btnBar.className = "dropbtn-bar";
-
-  // create quick phrases dropdown button
-  let dropdownDiv = document.createElement('div');
-  dropdownDiv.className = "dropdown";
-  
-  let dropdownBtn = document.createElement('a');
-  dropdownBtn.className = 'btn-del dropbtn';
-  dropdownBtn.innerText = '快速輸入';
-
-  let dropdownContent = document.createElement("div");
-  dropdownContent.className = "dropdown-content";
-
-  for(let ele of await createPhraseElements()) {
-    ele.addEventListener("click", e =>{
-      textarea.value += e.target.innerText + " ";
-      textarea.focus();
-    })
-    dropdownContent.appendChild(ele);
-  }
-
-  dropdownDiv.appendChild(dropdownBtn);
-  dropdownDiv.appendChild(dropdownContent);
-
-  btnBar.appendChild(dropdownDiv);
-
-  // create date picker button
-  const datepickerDiv = document.createElement('div');
-  datepickerDiv.className = "dropdown";
-
-  const datePickerBtn = document.createElement('a');
-  datePickerBtn.className = "btn-del dropbtn";
-  datePickerBtn.setAttribute("id", "datepicker-btn");
-  datePickerBtn.innerText = "輸入日期";
-
-  const calendarDiv = document.createElement('div');
-  calendarDiv.setAttribute("id", "calendar");
-  calendarDiv.className = "calendar";
-
-  datepickerDiv.appendChild(datePickerBtn);
-  datepickerDiv.appendChild(calendarDiv);
-  btnBar.appendChild(datepickerDiv);
-
-
-  // show dropdown menu bar
-  textarea.parentNode.appendChild(btnBar);
-
-  // jquery should be loaded after the element is created, otherwise it will not work
-  $("#calendar").hide();
-
-  $("#calendar").datepicker({
-    dateFormat: "mm/dd(DD)",
-    changeYear: true,
-    changeMonth: true,
-    dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"],
-    dayNames: ["日", "一", "二", "三", "四", "五", "六"],
-    minDate: new Date(),
-    onSelect: function(dateText) {
-      textarea.value += " " + dateText;
-    }
-  });
-
-  $("#datepicker-btn").on("mouseenter", function() {
-    $("#calendar").show();
-  });
-
-  $("#calendar").on("mouseleave", function() {
-    $("#calendar").hide();
-  });
-
-  document.addEventListener("click", function(event) {
-    if (!datepickerDiv.contains(event.target)) {
-      $("#calendar").hide();
-    }
-  });
-}
-
-async function createPhraseElements() {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate()+1);
-
-  let phrases = [
-    `今天(${formatSimpleDate(today)})`,
-    `明天(${formatSimpleDate(tomorrow)})`,
-  ];
-
-  phrases.push(...await loadQuickPhrases());
-
-  let phraseElements = Array();
-  for(let p of phrases) {
-    let element = document.createElement('a');
-    element.innerText = p;
-    phraseElements.push(element);
-  }
-
-  return phraseElements;
-}
-
-async function loadQuickPhrases() {
-  let data = await chrome.storage.sync.get(['quick_phrases']);
-  return data["quick_phrases"];
-}
-async function updateQuickPhrases(data) {
-  await chrome.storage.sync.set({['quick_phrases']: data});
-}
-
-// Other
-
-function sleep(s) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, s);
-  });
-}
-
-async function isExtensionOff() {
-  let data = await chrome.storage.sync.get(["deactivate"]);
-  return data["deactivate"];
-}
-
-function formatDateTime(date) {
-  let year = date.getFullYear();
-  let month = date.getMonth()+1;
-  let day = date.getDate();
-  let h = `0${date.getHours()}`.slice(-2);
-  let m = `0${date.getMinutes()}`.slice(-2);
-  return `${year}/${month}/${day} ${h}:${m}`;
-}
-
-function formatSimpleDate(date) {
-  let month = date.getMonth()+1;
-  let day = date.getDate();
-  return `${month}/${day}`;
 }
