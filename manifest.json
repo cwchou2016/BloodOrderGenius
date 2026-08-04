@@ -30,8 +30,8 @@
       "js": [
         "scripts/jquery-4.0.0.min.js",
         "scripts/jquery-ui.min.js",
-        "scripts/global.js",
-        "scripts/tools.js"
+        "scripts/globalServes.js",
+        "scripts/utils.js"
       ],
       "css": ["css/global.css"]
     },
