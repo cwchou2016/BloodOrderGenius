@@ -1,5 +1,27 @@
 let spDetail = null;
 
+const redAgMap = {
+  "002001": "M",
+  "002002": "N",
+  "002003": "S",
+  "002004": "s'",
+  "002007": "Mia",
+  "003001": "P1",
+  "004002": "C",
+  "004003": "E",
+  "004004": "c'",
+  "004005": "e",
+  "006001": "K",
+  "006002": "k'",
+  "007001": "Lea",
+  "007002": "Leb",
+  "008001": "Fya",
+  "008002": "Fyb",
+  "009001": "Jka",
+  "009002": "Jkb",
+  "010001": "Dia"
+};
+
 window.addEventListener("load", async function() {
     if(await isExtensionOff()) return;
 
@@ -65,16 +87,13 @@ function buildNoteDivs() {
  */
 async function loadOrderNote() {
     if (!spDetail) {
-        console.log("loading spDetail");
         spDetail = await querySpBloodOrder();
-        console.log(spDetail);
     }
 
     const orderEle = document.querySelectorAll("#queryResultBox table tbody tr td:nth-child(2)");
     orderEle.forEach((ele) => {
         const orderNum = ele.getElementsByClassName("orderNum")[0].innerText;
         const noteDiv = ele.getElementsByClassName("note")[0];
-        console.log(orderNum)
         const result = spDetail.results.filter(order => order.spBldOrdNo === orderNum)[0];
 
         // rbcAgneg
@@ -82,7 +101,7 @@ async function loadOrderNote() {
         for(i=1; i<11;i++) {
             const ag = result["rbcAgneg"+i];
             if (ag) {
-                rbcAg.push(ag);
+                rbcAg.push(redAgMap[ag]);
             }
         };
 
