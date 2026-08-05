@@ -18,8 +18,7 @@ function connectSubmitBtn() {
  */
 function buildNoteDivs() {
     const resultBoxDiv = document.getElementById("queryResultBox");
-    
-    
+        
     // Create an observer to watch for DOM changes inside #queryResultBox
     const observer = new MutationObserver((mutationsList, observer) => {
         // DOM has updated! Now grab the order number elements:
@@ -35,7 +34,17 @@ function buildNoteDivs() {
             ele.innerHTML = "";
             ele.appendChild(orderDiv);
             ele.appendChild(noteDiv);
-        });          
+        });
+
+        // add event to pager div
+        const pagerDiv = document.getElementsByClassName("pager")[0];
+        const pagerBtn = pagerDiv.querySelectorAll("li");
+
+        pagerBtn.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                buildNoteDivs();
+            });
+        });
 
         // Stop observing once we've processed the update
         observer.disconnect();
