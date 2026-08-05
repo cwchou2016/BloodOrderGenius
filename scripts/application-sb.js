@@ -13,12 +13,20 @@ function connectSubmitBtn() {
         
         // Create an observer to watch for DOM changes inside #queryResultBox
         const observer = new MutationObserver((mutationsList, observer) => {
-            // DOM has updated! Now grab the numbers:
+            // DOM has updated! Now grab the order number elements:
             const orderEle = resultBoxDiv.querySelectorAll("table tbody tr td:nth-child(2)");
             orderEle.forEach((ele) => {
-                console.log(ele);
-            });
-            
+                const orderDiv = document.createElement("div");
+                orderDiv.innerText = ele.innerText;
+
+                const noteDiv = document.createElement("div");
+                noteDiv.className = "note";
+                noteDiv.innerText = "notes"
+
+                ele.innerHTML = "";
+                ele.appendChild(orderDiv);
+                ele.appendChild(noteDiv);
+            });          
 
             // Stop observing once we've processed the update
             observer.disconnect();
