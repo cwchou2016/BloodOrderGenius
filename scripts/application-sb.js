@@ -8,14 +8,24 @@ window.addEventListener("load", async function() {
 
 function connectSubmitBtn() {
     document.getElementById("submit").addEventListener("click", () => {
-        console.log("clicked");
+        const resultBoxDiv = document.getElementById("queryResultBox");
         
-        const parentDiv = document.getElementById("queryResultBox");
-        const orderEle = parentDiv.querySelectorAll("table tbody tr td:nth-child(2)");
+        
+        // Create an observer to watch for DOM changes inside #queryResultBox
+        const observer = new MutationObserver((mutationsList, observer) => {
+            // DOM has updated! Now grab the numbers:
+            const orderEle = resultBoxDiv.querySelectorAll("table tbody tr td:nth-child(2)");
+            orderEle.forEach((ele) => {
+                console.log(ele);
+            });
+            
 
-        orderEle.forEach((ele) => {
-            console.log(ele);
+            // Stop observing once we've processed the update
+            observer.disconnect();
         });
+
+        // Start watching for changes to the table content
+        observer.observe(resultBoxDiv, { childList: true, subtree: true });
     });
 
 }
