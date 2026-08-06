@@ -22,6 +22,22 @@ const redAgMap = {
   "010001": "Dia"
 };
 
+const bloodProductsMap = {
+  "001": "WB",
+  "043": "RL",
+  "048": "WRC",
+  "062": "冷凍紅血球",
+  "064": "冷凍去甘油紅血球",
+  "101": "CRYO",
+  "120": "PLT",
+  "122": "PH",
+  "127": "LRPH",
+  "162": "WBC",
+  "182": "FFP",
+  "186": "SFP"
+};
+
+
 window.addEventListener("load", async function() {
     if(await isExtensionOff()) return;
 
@@ -142,7 +158,7 @@ async function loadProductQuantity() {
         const productDiv = ele.querySelector(".note .product");
 
         querySpOrderDetail(orderNum).then(data => {
-            let note = `${data[0].bldItemNo}(${data[0].bldOrderQty})`;
+            let note = `${bloodProductsMap[data[0].bldItemNo]}(${data[0].bldOrderQty})`;
             productDiv.innerText = note.trim();
         });
     });
