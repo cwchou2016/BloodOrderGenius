@@ -105,6 +105,19 @@ async function loadOrderNote() {
             }
         };
 
-        noteDiv.innerText = rbcAg.join(",")
+        //hla
+        const hlaA = [];
+        const hlaB = [];
+
+        for(i=1;i<3;i++) {
+            const aAg = result['spReqHlaA'+i];
+            const bAg = result['spReqHlaB'+i];
+
+            if(aAg) {hlaA.push("A"+aAg)};
+            if(bAg) {hlaB.push("B"+bAg)};
+        }
+
+        let notes = rbcAg.join(",") + " " + hlaA.join(",") + " " + hlaB.join(",");
+        noteDiv.innerText = notes.trim();
     });
 }
