@@ -121,6 +121,13 @@ async function loadOrderAntigen() {
         const agDiv = ele.querySelector(".note .antigen");
         const result = spDetail.results.filter(order => order.spBldOrdNo === orderNum)[0];
 
+        let tooltip ="_";
+        if (result['bldOrdRemark']) {
+            tooltip = result['bldOrdRemark'];
+        }
+
+        ele.setAttribute("title", tooltip);
+
         // rbcAgneg
         const rbcAg = [];
         for(i=1; i<11;i++) {
