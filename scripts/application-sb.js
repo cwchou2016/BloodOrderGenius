@@ -54,7 +54,15 @@ function buildNoteDivs() {
 
             const noteDiv = document.createElement("div");
             noteDiv.className = "note";
-            noteDiv.innerText = "...";
+
+            const agDiv = document.createElement("div");
+            agDiv.className = 'antigen';
+
+            const productDiv = document.createElement("div");
+            productDiv.className = 'product';
+
+            noteDiv.appendChild(agDiv);
+            noteDiv.appendChild(productDiv);
 
             ele.innerHTML = "";
             ele.appendChild(orderDiv);
@@ -71,7 +79,8 @@ function buildNoteDivs() {
             });
         });
 
-        loadOrderNote();
+        loadOrderAntigen();
+        loadProductQuantity();
 
         // Stop observing once we've processed the update
         observer.disconnect();
@@ -83,9 +92,9 @@ function buildNoteDivs() {
 
 
 /**
- * Load notes to note divs
+ * Loading antigen of special orders to note divs
  */
-async function loadOrderNote() {
+async function loadOrderAntigen() {
     if (!spDetail) {
         spDetail = await querySpBloodOrder();
     }
@@ -93,7 +102,7 @@ async function loadOrderNote() {
     const orderEle = document.querySelectorAll("#queryResultBox table tbody tr td:nth-child(2)");
     orderEle.forEach((ele) => {
         const orderNum = ele.getElementsByClassName("orderNum")[0].innerText;
-        const noteDiv = ele.getElementsByClassName("note")[0];
+        const agDiv = ele.querySelector(".note .antigen");
         const result = spDetail.results.filter(order => order.spBldOrdNo === orderNum)[0];
 
         // rbcAgneg
@@ -118,6 +127,23 @@ async function loadOrderNote() {
         }
 
         let notes = rbcAg.join(",") + " " + hlaA.join(",") + " " + hlaB.join(",");
-        noteDiv.innerText = notes.trim();
+        agDiv.innerText = notes.trim();
+    });
+}
+
+
+/**
+ * Loading the product and quantity of special blood orders to note divs
+ */
+async function loadProductQuantity() {
+    const orderEle = document.querySelectorAll("#queryResultBox table tbody tr td:nth-child(2)");
+    orderEle.forEach((ele) => {
+        const orderNum = ele.getElementsByClassName("orderNum")[0].innerText;
+        const productDiv = ele.querySelector(".note .product");
+
+        querySpOrderDetail(orderNum).then(data => {
+            let note = `${data[0].bldItemNo}(${data[0].bldOrderQty})`;
+            productDiv.innerText = note.trim();
+        });
     });
 }
