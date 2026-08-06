@@ -6,6 +6,7 @@ const downloadEDI_api =
 const confirm_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/confirm";
 const checkToken_api = getOrigin() + "/tbsf-api/check_token";
 const querySpBloodList_api = getOrigin() + "/tbsf-api/bs/specialbloodOrderMasterService/querySpecialBloodOrderList";
+const querySpBloodOrderDetail_api =  getOrigin() + "/tbsf-api/bs/specialbloodOrderMasterService/querySpecialBloodOrderDetails";
 
 
 // Server methods
@@ -111,6 +112,30 @@ async function querySpBloodOrder(orderNumber = "") {
   });
   const data = await response.json();
   return data["responseData"];
+}
+
+
+/**
+ * Query the details of a special blood order from the server.
+ * @param {string} orderNumber 
+ * @returns {Promise<any>} A promise that resolves to the details of special blood order.
+ */
+async function querySpOrderDetail(orderNumber) {
+  const payload = {
+    pk: orderNumber
+  };
+
+  const response = await fetch(querySpBloodOrderDetail_api, {
+    method:"POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      Authorization: `bearer ${getToken()}`,
+    },
+    body: new URLSearchParams(payload).toString(),
+  });
+
+  const data = await response.json();
+  return data['responseData'];
 }
 
 /**
