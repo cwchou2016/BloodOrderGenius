@@ -74,10 +74,14 @@ function buildNoteDivs() {
             const agDiv = document.createElement("div");
             agDiv.className = 'antigen';
 
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'pt-name';
+
             const productDiv = document.createElement("div");
             productDiv.className = 'product';
 
             noteDiv.appendChild(agDiv);
+            noteDiv.append(nameDiv);
             noteDiv.appendChild(productDiv);
 
             ele.innerHTML = "";
@@ -95,7 +99,7 @@ function buildNoteDivs() {
             });
         });
 
-        loadOrderAntigen();
+        loadOrderDetails();
         loadProductQuantity();
 
         // Stop observing once we've processed the update
@@ -108,9 +112,9 @@ function buildNoteDivs() {
 
 
 /**
- * Loading antigen of special orders to note divs
+ * Loading antigen, patient name and remark of special orders to note divs
  */
-async function loadOrderAntigen() {
+async function loadOrderDetails() {
     if (!spDetail) {
         spDetail = await querySpBloodOrder();
     }
@@ -120,6 +124,11 @@ async function loadOrderAntigen() {
         const orderNum = ele.getElementsByClassName("orderNum")[0].innerText;
         const agDiv = ele.querySelector(".note .antigen");
         const result = spDetail.results.filter(order => order.spBldOrdNo === orderNum)[0];
+        const nameDiv = ele.querySelector(".note .pt-name");
+
+        queryPatientsDetails(result.bldUserSeqNo).then(pt => {
+            nameDiv.innerText = pt.bldUserName;
+        });
 
         let tooltip ="_";
         if (result['bldOrdRemark']) {
