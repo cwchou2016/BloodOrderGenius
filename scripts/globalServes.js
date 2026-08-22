@@ -7,7 +7,7 @@ const confirm_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/confirm";
 const checkToken_api = getOrigin() + "/tbsf-api/check_token";
 const querySpBloodList_api = getOrigin() + "/tbsf-api/bs/specialbloodOrderMasterService/querySpecialBloodOrderList";
 const querySpBloodOrderDetail_api =  getOrigin() + "/tbsf-api/bs/specialbloodOrderMasterService/querySpecialBloodOrderDetails";
-
+const queryPatientsDetail_api = getOrigin() + "/tbsf-api/bs/patientsDetailService/queryPatientsDetailInfo"
 
 // Server methods
 /**
@@ -137,6 +137,31 @@ async function querySpOrderDetail(orderNumber) {
   const data = await response.json();
   return data['responseData'];
 }
+
+
+/**
+ * Query patients details from server
+ * @param {string} bldUserSeqNo
+ * @return {Promise<any>} A promise that reslves the details of a patient
+ */
+async function queryPatientsDetails(bldUserSeqNo) {
+  const payload = {
+    "bldUserSeqNo": bldUserSeqNo
+  }
+
+  const response = await fetch(queryPatientsDetail_api, {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      Authorization: `bearer ${getToken()}`,
+    },
+    body: new URLSearchParams(payload).toString(),
+  });
+
+  const data = await response.json();
+  return data['responseData'];
+}
+
 
 /**
  * Confirms a shipment on the server.
