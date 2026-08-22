@@ -1,0 +1,13 @@
+.note {
+    font-style: italic;
+    font-size: xx-small;
+    color: gray;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.antigen, .pt-name, .product {
+    margin: 0px 4px;
+    display: block;
+}
