@@ -30,7 +30,6 @@ function buildNoteDivs() {
 
             const productDiv = document.createElement("div");
             productDiv.className = 'product';
-            productDiv.innerText="product details showing here";
 
             noteDiv.appendChild(productDiv);
 
@@ -49,10 +48,42 @@ function buildNoteDivs() {
             });
         });
 
+        loadProductQuantity();
+
         // Stop observing once we've processed the update
         observer.disconnect();
     });
 
     // Start watching for changes to the table content
     observer.observe(resultBoxDiv, { childList: true, subtree: true });
+}
+
+
+async function loadProductQuantity() {
+    const orderEle = document.querySelectorAll("#queryResultBox table tbody tr td:nth-child(2)");
+    orderEle.forEach((ele) => {
+        const orderNum = ele.getElementsByClassName("orderNum")[0].innerText;
+        const productDiv = ele.querySelector(".note .product");
+
+        queryOrderDetail(orderNum).then(data => {
+
+            const grouped = data.reduce((acc, item) => {
+                const itemNo = item.bldItemNo;
+                const detail = `${item.bldTypeAbo}${rhMap[item.bldRHTyp]}(${item.bldOrdQty})`;
+
+                if (!acc[itemNo]) {
+                    acc[itemNo] = [];
+                }
+                acc[itemNo].push(detail);
+
+                return acc;
+            }, {});
+
+            const result = Object.entries(grouped)
+                .map(([itemNo, details]) => `${bloodProductsMap[itemNo]}: ${details.join(' ')}`)
+                .join('\n');
+
+            productDiv.innerText = result;
+        });
+    });
 }

@@ -32,6 +32,11 @@ const redAgMap = {
   "010001": "Dia"
 };
 
+const rhMap = {
+  "是": "-",
+  "否": "+"
+}
+
 const bloodProductsMap = {
   "001": "WB",
   "043": "RL",
