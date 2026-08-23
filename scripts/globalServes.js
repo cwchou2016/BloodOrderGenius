@@ -100,14 +100,14 @@ function getToken() {
 
 
 /**
- * Queries the order information from the server.
- * @param {string} orderNumber - The order number to query.
- * @returns {Promise<any>} A promise that resolves to the order information.  
+ * Queries the supply information from the server.
+ * @param {string} supplyNumber - The supply number to query.
+ * @returns {Promise<any>} A promise that resolves to the supply information.  
  */
-async function queryOrder(orderNumber = "") {
+async function querySupply(supplyNumber = "") {
   let payload = {
     bagNoType: 1,
-    bldSupOrdNo: orderNumber,
+    bldSupOrdNo: supplyNumber,
     bldSupOrdShipDate: "",
     bldSupOrdStatus: "",
     iDisplayStart: 0,
