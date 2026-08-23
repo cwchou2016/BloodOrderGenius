@@ -7,6 +7,7 @@ const confirm_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/confirm";
 const checkToken_api = getOrigin() + "/tbsf-api/check_token";
 const querySpBloodList_api = getOrigin() + "/tbsf-api/bs/specialbloodOrderMasterService/querySpecialBloodOrderList";
 const querySpBloodOrderDetail_api =  getOrigin() + "/tbsf-api/bs/specialbloodOrderMasterService/querySpecialBloodOrderDetails";
+const queryBloodOrderDetail_api = getOrigin() + "/tbsf-api/bs/bloodOrderMasterService/queryBloodOrderDetails"
 const queryPatientsDetail_api = getOrigin() + "/tbsf-api/bs/patientsDetailService/queryPatientsDetailInfo"
 
 // Server methods
@@ -112,6 +113,30 @@ async function querySpBloodOrder(orderNumber = "") {
   });
   const data = await response.json();
   return data["responseData"];
+}
+
+
+/**
+ * Query the details of a regular blood order from the server.
+ * @param {string} orderNumber 
+ * @returns {Promise<any>} A promise that resolves to the details of blood order.
+ */
+async function queryOrderDetail(orderNumber) {
+  const payload = {
+    pk: orderNumber
+  };
+
+  const response = await fetch(queryBloodOrderDetail_api, {
+    method:"POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      Authorization: `bearer ${getToken()}`,
+    },
+    body: new URLSearchParams(payload).toString(),
+  });
+
+  const data = await response.json();
+  return data['responseData'];
 }
 
 
