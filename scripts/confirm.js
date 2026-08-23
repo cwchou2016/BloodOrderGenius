@@ -17,7 +17,7 @@ function getAllOrderNumber() {
 }
 
 async function verifyOrder(orderNumber) {
-  let result = await queryOrder(orderNumber);
+  let result = await querySupply(orderNumber);
   if (result["totalCount"] != 1) {
     return false;
   }
@@ -25,7 +25,7 @@ async function verifyOrder(orderNumber) {
 }
 
 async function getOrderStatus(orderNumber) {
-  let result = await queryOrder(orderNumber);
+  let result = await querySupply(orderNumber);
 
   result = result["results"][0];
 
