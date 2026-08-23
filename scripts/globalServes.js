@@ -6,6 +6,7 @@ const downloadEDI_api =
 const confirm_api = getOrigin() + "/tbsf-api/bs/bldSupOrdMService/confirm";
 const checkToken_api = getOrigin() + "/tbsf-api/check_token";
 const querySpBloodList_api = getOrigin() + "/tbsf-api/bs/specialbloodOrderMasterService/querySpecialBloodOrderList";
+const queryBloodList_api = getOrigin() + "/tbsf-api/bs/bloodOrderMasterService/queryBloodOrderList"
 const querySpBloodOrderDetail_api =  getOrigin() + "/tbsf-api/bs/specialbloodOrderMasterService/querySpecialBloodOrderDetails";
 const queryBloodOrderDetail_api = getOrigin() + "/tbsf-api/bs/bloodOrderMasterService/queryBloodOrderDetails"
 const queryPatientsDetail_api = getOrigin() + "/tbsf-api/bs/patientsDetailService/queryPatientsDetailInfo"
@@ -147,6 +148,37 @@ async function querySpBloodOrder(orderNumber = "") {
   };
 
   const response = await fetch(querySpBloodList_api, {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      Authorization: `bearer ${getToken()}`,
+    },
+    body: new URLSearchParams(payload).toString(),
+  });
+  const data = await response.json();
+  return data["responseData"];
+}
+
+
+/**
+ * Queries the regular blood order information from the server.
+ * @param {string} orderNumber - The order number to query.
+ * @returns {Promise<any>} A promise that resolves to the regular blood order information.
+ */
+async function queryBloodOrder(orderNumber="") {
+    let payload = {
+    bldSupOrdNo: orderNumber,
+    spIsIrradiated:"",
+    bldOrderDateStartInView:"",
+    bldOrderDateEndInView:"",
+    bldOrderStatus:"",
+    iDisplayStart: 0,
+    iDisplayLength:30,
+    bldUserHistoryNo:"",
+    spReqType:""
+  };
+
+  const response = await fetch(queryBloodList_api, {
     method: "POST",
     headers: {
       "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
