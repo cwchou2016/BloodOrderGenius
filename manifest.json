@@ -51,14 +51,15 @@
       "matches": [
         "https://dh.blood.org.tw/hospital/application-bd_table.htm"
       ],
-      "js": ["scripts/application-bd_table.js"]
+      "js": ["scripts/application-bd_table.js"],
+      "css": ["css/note-div.css"]
     },
     {
       "matches": [
         "https://dh.blood.org.tw/hospital/application-sb.htm"
       ],
       "js": ["scripts/application-sb.js"],
-      "css": ["css/application-sb.css"]
+      "css": ["css/note-div.css"]
     },
     {
       "matches": [
