@@ -92,7 +92,7 @@ async function loadOrderDetails() {
             nameDiv.innerText = pt.bldUserName;
         });
 
-        let tooltip ="_";
+        let tooltip ="無";
         if (result['bldOrdRemark']) {
             tooltip = result['bldOrdRemark'];
         }
