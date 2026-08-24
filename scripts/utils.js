@@ -116,12 +116,6 @@ async function buildQuickNotes(textarea) {
   $("#calendar").on("mouseleave", function() {
     $("#calendar").hide();
   });
-
-  document.addEventListener("click", function(event) {
-    if (!datepickerDiv.contains(event.target)) {
-      $("#calendar").hide();
-    }
-  });
 }
 
 
