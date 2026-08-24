@@ -6,7 +6,6 @@ window.addEventListener("load", async function() {
     document.getElementById('submit').addEventListener("click", () => {
         buildNoteDivs();
     });
-    
 });
 
 
@@ -48,6 +47,7 @@ function buildNoteDivs() {
             });
         });
 
+        loadOrderDetail();
         loadProductQuantity();
 
         // Stop observing once we've processed the update
@@ -59,6 +59,9 @@ function buildNoteDivs() {
 }
 
 
+/**
+ * Load product and quantity into note divs
+ */
 async function loadProductQuantity() {
     const orderEle = document.querySelectorAll("#queryResultBox table tbody tr td:nth-child(2)");
     orderEle.forEach((ele) => {
@@ -85,5 +88,25 @@ async function loadProductQuantity() {
 
             productDiv.innerText = result;
         });
+    });
+}
+
+
+/**
+ * Load regular order details to the note div
+ */
+async function loadOrderDetail() {
+    let detail = await queryBloodOrder();
+    const orderEle = document.querySelectorAll("#queryResultBox table tbody tr td:nth-child(2)");
+    orderEle.forEach((ele) => {
+        const orderNumber = ele.getElementsByClassName("orderNum")[0].innerText;
+
+        const result = detail.results.filter(order => order.bldOrderNo === orderNumber)[0];
+
+        let tooltip = "無"
+        if (result.bldOrderRemark && result.bldOrderRemark != "") {
+            tooltip = result.bldOrderRemark;
+        };
+        ele.setAttribute("title", tooltip);
     });
 }
