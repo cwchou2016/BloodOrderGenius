@@ -1,7 +1,7 @@
 .note {
     font-style: italic;
     font-size: xx-small;
-    color: gray;
+    color: lightslategray;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
