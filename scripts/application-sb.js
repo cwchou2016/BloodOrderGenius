@@ -120,7 +120,8 @@ async function loadOrderDetails() {
             if(bAg) {hlaB.push("B"+bAg)};
         }
 
-        let notes = rbcAg.join(",") + " " + hlaA.join(",") + " " + hlaB.join(",");
+        hlaA.push(...hlaB);
+        let notes = rbcAg.join(",") + " " + hlaA.join(",");
         agDiv.innerText = notes.trim();
     });
 }
