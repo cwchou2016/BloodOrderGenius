@@ -91,14 +91,15 @@
     ![](images/quick_phrase.png)
 
 - 開啟/關閉套件
-  
-    ![](images/on.png) 
-    ![](images/off.png)
+
+	![](images/on.png) 
+	![](images/off.png)
 
 - 「一般訂血申請(表單式)」畫面顯示捐血中心庫存捐血中心庫存
-  
-    ![](images/inventory.png)
 
+	![](images/inventory.png)
+	
+	
 ## 隱私權保護政策
 
 1. 歡迎使用「血庫小精靈 BloodOrderGenius」Chrome 瀏覽器擴充套件(以下簡稱本套件)。特此向您說明本套件的隱私權保護政策。
